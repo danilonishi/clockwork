@@ -24,14 +24,12 @@ namespace Clockwork
 
 		bool IsRunAsAdministrator()
 		{
-			var wi = WindowsIdentity.GetCurrent();
-			var wp = new WindowsPrincipal(wi);
-
-			return wp.IsInRole(WindowsBuiltInRole.Administrator);
+			return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 		}
 
 		public Form1()
 		{
+#if !DEBUG
 			if (!IsRunAsAdministrator())
 			{
 				var processInfo = new ProcessStartInfo(Assembly.GetExecutingAssembly().CodeBase)
@@ -56,8 +54,7 @@ namespace Clockwork
 				// Shut down the current process
 				Environment.Exit(0);
 			}
-
-			Console.WriteLine("Form1");
+#endif
 			InitializeComponent();
 
 			modifiedTime = new SystemTime();
@@ -65,11 +62,18 @@ namespace Clockwork
 			LoadValues();
 		}
 
+		void DisableAutomaticTimeChange()
+		{
+			checkBox2.Checked = false;
+		}
+
 		BackgroundWorker nistWorker;
 		ProgressWindow progressWindow;
 
 		void ApplyNistTime()
 		{
+			DisableAutomaticTimeChange();
+
 			Console.WriteLine("ApplyNistTime");
 
 			if (progressWindow != null && progressWindow.IsDisposed)
@@ -258,16 +262,19 @@ namespace Clockwork
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
+			DisableAutomaticTimeChange();
 			PerformTimeChange((ushort)numericUpDown1.Value, 0, 0);
 		}
 
 		private void Button2_Click(object sender, EventArgs e)
 		{
+			DisableAutomaticTimeChange();
 			PerformTimeChange(0, (ushort)numericUpDown2.Value, 0);
 		}
 
 		private void Button3_Click(object sender, EventArgs e)
 		{
+			DisableAutomaticTimeChange();
 			PerformTimeChange(0, 0, (ushort)numericUpDown3.Value);
 		}
 
@@ -291,20 +298,29 @@ namespace Clockwork
 
 		private void NumericUpDown4_ValueChanged(object sender, EventArgs e)
 		{
-			(sender as NumericUpDown).Value %= 24;
-			SaveValue("AutoHour", (ushort)(sender as NumericUpDown).Value);
+			SetAutoProps((sender as NumericUpDown), "AutoHour", 24);
 		}
 
 		private void NumericUpDown5_ValueChanged(object sender, EventArgs e)
 		{
-			(sender as NumericUpDown).Value %= 60;
-			SaveValue("AutoMinute", (ushort)(sender as NumericUpDown).Value);
+			SetAutoProps((sender as NumericUpDown), "AutoMinute", 60);
 		}
 
 		private void NumericUpDown6_ValueChanged(object sender, EventArgs e)
 		{
-			(sender as NumericUpDown).Value %= 60;
-			SaveValue("AutoSecond", (ushort)(sender as NumericUpDown).Value);
+			SetAutoProps((sender as NumericUpDown), "AutoSecond", 60);
+		}
+
+		void SetAutoProps(NumericUpDown sender, string method, decimal cap)
+		{
+			bool reenable = checkBox2.Checked;
+			DisableAutomaticTimeChange();
+			(sender as NumericUpDown).Value %= cap;
+			SaveValue(method, (ushort)(sender as NumericUpDown).Value);
+			if (reenable)
+			{
+				checkBox2.Checked = true;
+			}
 		}
 
 		private void Timer1_Tick(object sender, EventArgs e)
