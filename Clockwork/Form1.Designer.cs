@@ -30,74 +30,82 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-			this.button1 = new System.Windows.Forms.Button();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.manualHourButton = new System.Windows.Forms.Button();
+			this.manualHourIncrement = new System.Windows.Forms.NumericUpDown();
+			this.fetchDatetimeCheckbox = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+			this.manualMinuteIncrement = new System.Windows.Forms.NumericUpDown();
+			this.manualSecondIncrement = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
+			this.manualMinuteButton = new System.Windows.Forms.Button();
+			this.manualSecondButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.autoIncrementCheckbox = new System.Windows.Forms.CheckBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
-			this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+			this.automaticSecondIncrement = new System.Windows.Forms.NumericUpDown();
 			this.label7 = new System.Windows.Forms.Label();
-			this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.automaticMinuteIncrement = new System.Windows.Forms.NumericUpDown();
+			this.automaticHourIncrement = new System.Windows.Forms.NumericUpDown();
+			this.automaticProgressbar = new System.Windows.Forms.ProgressBar();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.button4 = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+			this.fetchDatetimeButton = new System.Windows.Forms.Button();
+			this.realTimeLabel = new System.Windows.Forms.Label();
+			this.realtimeBox = new System.Windows.Forms.GroupBox();
+			this.adjustedTimeBox = new System.Windows.Forms.GroupBox();
+			this.adjustedTimeLabel = new System.Windows.Forms.Label();
+			this.realDatePicker = new System.Windows.Forms.DateTimePicker();
+			this.adjustedDatePicker = new System.Windows.Forms.DateTimePicker();
+			((System.ComponentModel.ISupportInitialize)(this.manualHourIncrement)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.manualMinuteIncrement)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.manualSecondIncrement)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticSecondIncrement)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticMinuteIncrement)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticHourIncrement)).BeginInit();
+			this.realtimeBox.SuspendLayout();
+			this.adjustedTimeBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// button1
+			// manualHourButton
 			// 
-			resources.ApplyResources(this.button1, "button1");
-			this.button1.Name = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.Button1_Click);
+			resources.ApplyResources(this.manualHourButton, "manualHourButton");
+			this.manualHourButton.Name = "manualHourButton";
+			this.manualHourButton.UseVisualStyleBackColor = true;
+			this.manualHourButton.Click += new System.EventHandler(this.ManualHourClick);
 			// 
-			// numericUpDown1
+			// manualHourIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.ValueChanged += new System.EventHandler(this.NumericUpDown1_ValueChanged);
+			resources.ApplyResources(this.manualHourIncrement, "manualHourIncrement");
+			this.manualHourIncrement.Name = "manualHourIncrement";
+			this.manualHourIncrement.ValueChanged += new System.EventHandler(this.ManualHourChanged);
 			// 
-			// checkBox1
+			// fetchDatetimeCheckbox
 			// 
-			resources.ApplyResources(this.checkBox1, "checkBox1");
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+			resources.ApplyResources(this.fetchDatetimeCheckbox, "fetchDatetimeCheckbox");
+			this.fetchDatetimeCheckbox.Name = "fetchDatetimeCheckbox";
+			this.fetchDatetimeCheckbox.UseVisualStyleBackColor = true;
+			this.fetchDatetimeCheckbox.CheckedChanged += new System.EventHandler(this.FetchDatetimeCheckChanged);
 			// 
 			// label1
 			// 
 			resources.ApplyResources(this.label1, "label1");
 			this.label1.Name = "label1";
 			// 
-			// numericUpDown2
+			// manualMinuteIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown2, "numericUpDown2");
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDown2_ValueChanged);
+			resources.ApplyResources(this.manualMinuteIncrement, "manualMinuteIncrement");
+			this.manualMinuteIncrement.Name = "manualMinuteIncrement";
+			this.manualMinuteIncrement.ValueChanged += new System.EventHandler(this.ManualMinuteChanged);
 			// 
-			// numericUpDown3
+			// manualSecondIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown3, "numericUpDown3");
-			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.ValueChanged += new System.EventHandler(this.NumericUpDown3_ValueChanged);
+			resources.ApplyResources(this.manualSecondIncrement, "manualSecondIncrement");
+			this.manualSecondIncrement.Name = "manualSecondIncrement";
+			this.manualSecondIncrement.ValueChanged += new System.EventHandler(this.ManualSecondchanged);
 			// 
 			// label2
 			// 
@@ -109,55 +117,55 @@
 			resources.ApplyResources(this.label3, "label3");
 			this.label3.Name = "label3";
 			// 
-			// button2
+			// manualMinuteButton
 			// 
-			resources.ApplyResources(this.button2, "button2");
-			this.button2.Name = "button2";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.Button2_Click);
+			resources.ApplyResources(this.manualMinuteButton, "manualMinuteButton");
+			this.manualMinuteButton.Name = "manualMinuteButton";
+			this.manualMinuteButton.UseVisualStyleBackColor = true;
+			this.manualMinuteButton.Click += new System.EventHandler(this.ManualMinuteClick);
 			// 
-			// button3
+			// manualSecondButton
 			// 
-			resources.ApplyResources(this.button3, "button3");
-			this.button3.Name = "button3";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.Button3_Click);
+			resources.ApplyResources(this.manualSecondButton, "manualSecondButton");
+			this.manualSecondButton.Name = "manualSecondButton";
+			this.manualSecondButton.UseVisualStyleBackColor = true;
+			this.manualSecondButton.Click += new System.EventHandler(this.ManualSecondClick);
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.button3);
-			this.groupBox1.Controls.Add(this.button1);
-			this.groupBox1.Controls.Add(this.button2);
-			this.groupBox1.Controls.Add(this.numericUpDown1);
+			this.groupBox1.Controls.Add(this.manualSecondButton);
+			this.groupBox1.Controls.Add(this.manualHourButton);
+			this.groupBox1.Controls.Add(this.manualMinuteButton);
+			this.groupBox1.Controls.Add(this.manualHourIncrement);
 			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Controls.Add(this.numericUpDown2);
+			this.groupBox1.Controls.Add(this.manualMinuteIncrement);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.numericUpDown3);
+			this.groupBox1.Controls.Add(this.manualSecondIncrement);
 			resources.ApplyResources(this.groupBox1, "groupBox1");
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.TabStop = false;
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.checkBox2);
+			this.groupBox2.Controls.Add(this.autoIncrementCheckbox);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.label6);
-			this.groupBox2.Controls.Add(this.numericUpDown6);
+			this.groupBox2.Controls.Add(this.automaticSecondIncrement);
 			this.groupBox2.Controls.Add(this.label7);
-			this.groupBox2.Controls.Add(this.numericUpDown5);
-			this.groupBox2.Controls.Add(this.numericUpDown4);
-			this.groupBox2.Controls.Add(this.progressBar1);
+			this.groupBox2.Controls.Add(this.automaticMinuteIncrement);
+			this.groupBox2.Controls.Add(this.automaticHourIncrement);
+			this.groupBox2.Controls.Add(this.automaticProgressbar);
 			resources.ApplyResources(this.groupBox2, "groupBox2");
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.TabStop = false;
 			// 
-			// checkBox2
+			// autoIncrementCheckbox
 			// 
-			resources.ApplyResources(this.checkBox2, "checkBox2");
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.UseVisualStyleBackColor = true;
-			this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+			resources.ApplyResources(this.autoIncrementCheckbox, "autoIncrementCheckbox");
+			this.autoIncrementCheckbox.Name = "autoIncrementCheckbox";
+			this.autoIncrementCheckbox.UseVisualStyleBackColor = true;
+			this.autoIncrementCheckbox.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
 			// 
 			// label5
 			// 
@@ -169,33 +177,33 @@
 			resources.ApplyResources(this.label6, "label6");
 			this.label6.Name = "label6";
 			// 
-			// numericUpDown6
+			// automaticSecondIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown6, "numericUpDown6");
-			this.numericUpDown6.Name = "numericUpDown6";
-			this.numericUpDown6.ValueChanged += new System.EventHandler(this.NumericUpDown6_ValueChanged);
+			resources.ApplyResources(this.automaticSecondIncrement, "automaticSecondIncrement");
+			this.automaticSecondIncrement.Name = "automaticSecondIncrement";
+			this.automaticSecondIncrement.ValueChanged += new System.EventHandler(this.AutoSecondChanged);
 			// 
 			// label7
 			// 
 			resources.ApplyResources(this.label7, "label7");
 			this.label7.Name = "label7";
 			// 
-			// numericUpDown5
+			// automaticMinuteIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown5, "numericUpDown5");
-			this.numericUpDown5.Name = "numericUpDown5";
-			this.numericUpDown5.ValueChanged += new System.EventHandler(this.NumericUpDown5_ValueChanged);
+			resources.ApplyResources(this.automaticMinuteIncrement, "automaticMinuteIncrement");
+			this.automaticMinuteIncrement.Name = "automaticMinuteIncrement";
+			this.automaticMinuteIncrement.ValueChanged += new System.EventHandler(this.AutoMinuteChanged);
 			// 
-			// numericUpDown4
+			// automaticHourIncrement
 			// 
-			resources.ApplyResources(this.numericUpDown4, "numericUpDown4");
-			this.numericUpDown4.Name = "numericUpDown4";
-			this.numericUpDown4.ValueChanged += new System.EventHandler(this.NumericUpDown4_ValueChanged);
+			resources.ApplyResources(this.automaticHourIncrement, "automaticHourIncrement");
+			this.automaticHourIncrement.Name = "automaticHourIncrement";
+			this.automaticHourIncrement.ValueChanged += new System.EventHandler(this.AutoHourChanged);
 			// 
-			// progressBar1
+			// automaticProgressbar
 			// 
-			resources.ApplyResources(this.progressBar1, "progressBar1");
-			this.progressBar1.Name = "progressBar1";
+			resources.ApplyResources(this.automaticProgressbar, "automaticProgressbar");
+			this.automaticProgressbar.Name = "automaticProgressbar";
 			// 
 			// timer1
 			// 
@@ -203,67 +211,119 @@
 			this.timer1.Interval = 10;
 			this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
 			// 
-			// button4
+			// fetchDatetimeButton
 			// 
-			resources.ApplyResources(this.button4, "button4");
-			this.button4.Name = "button4";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.Button4_Click);
+			resources.ApplyResources(this.fetchDatetimeButton, "fetchDatetimeButton");
+			this.fetchDatetimeButton.Name = "fetchDatetimeButton";
+			this.fetchDatetimeButton.UseVisualStyleBackColor = true;
+			this.fetchDatetimeButton.Click += new System.EventHandler(this.Button4_Click);
+			// 
+			// realTimeLabel
+			// 
+			resources.ApplyResources(this.realTimeLabel, "realTimeLabel");
+			this.realTimeLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.realTimeLabel.Name = "realTimeLabel";
+			// 
+			// realtimeBox
+			// 
+			this.realtimeBox.Controls.Add(this.realTimeLabel);
+			resources.ApplyResources(this.realtimeBox, "realtimeBox");
+			this.realtimeBox.Name = "realtimeBox";
+			this.realtimeBox.TabStop = false;
+			// 
+			// adjustedTimeBox
+			// 
+			this.adjustedTimeBox.Controls.Add(this.adjustedTimeLabel);
+			resources.ApplyResources(this.adjustedTimeBox, "adjustedTimeBox");
+			this.adjustedTimeBox.Name = "adjustedTimeBox";
+			this.adjustedTimeBox.TabStop = false;
+			// 
+			// adjustedTimeLabel
+			// 
+			resources.ApplyResources(this.adjustedTimeLabel, "adjustedTimeLabel");
+			this.adjustedTimeLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.adjustedTimeLabel.Name = "adjustedTimeLabel";
+			// 
+			// realDatePicker
+			// 
+			resources.ApplyResources(this.realDatePicker, "realDatePicker");
+			this.realDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.realDatePicker.Name = "realDatePicker";
+			// 
+			// adjustedDatePicker
+			// 
+			this.adjustedDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			resources.ApplyResources(this.adjustedDatePicker, "adjustedDatePicker");
+			this.adjustedDatePicker.Name = "adjustedDatePicker";
+			this.adjustedDatePicker.CloseUp += new System.EventHandler(this.AdjustedDatePicker_CloseUp);
+			this.adjustedDatePicker.ValueChanged += new System.EventHandler(this.DatetimeAdjustmentChanged);
 			// 
 			// Form1
 			// 
 			this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.button4);
+			this.Controls.Add(this.adjustedDatePicker);
+			this.Controls.Add(this.realDatePicker);
+			this.Controls.Add(this.adjustedTimeBox);
+			this.Controls.Add(this.realtimeBox);
+			this.Controls.Add(this.fetchDatetimeButton);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this.fetchDatetimeCheckbox);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
-			this.MinimizeBox = false;
 			this.Name = "Form1";
 			this.TransparencyKey = System.Drawing.Color.DimGray;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-			this.Load += new System.EventHandler(this.Form1_Load);
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.manualHourIncrement)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.manualMinuteIncrement)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.manualSecondIncrement)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticSecondIncrement)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticMinuteIncrement)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.automaticHourIncrement)).EndInit();
+			this.realtimeBox.ResumeLayout(false);
+			this.realtimeBox.PerformLayout();
+			this.adjustedTimeBox.ResumeLayout(false);
+			this.adjustedTimeBox.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.Button manualHourButton;
+		private System.Windows.Forms.CheckBox fetchDatetimeCheckbox;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.NumericUpDown numericUpDown2;
-		private System.Windows.Forms.NumericUpDown numericUpDown3;
+		private System.Windows.Forms.NumericUpDown manualMinuteIncrement;
+		private System.Windows.Forms.NumericUpDown manualSecondIncrement;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button manualMinuteButton;
+		private System.Windows.Forms.Button manualSecondButton;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.NumericUpDown numericUpDown6;
+		private System.Windows.Forms.NumericUpDown automaticSecondIncrement;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.NumericUpDown numericUpDown5;
-		private System.Windows.Forms.NumericUpDown numericUpDown4;
-		private System.Windows.Forms.ProgressBar progressBar1;
-		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.NumericUpDown automaticMinuteIncrement;
+		private System.Windows.Forms.NumericUpDown automaticHourIncrement;
+		private System.Windows.Forms.ProgressBar automaticProgressbar;
+		private System.Windows.Forms.CheckBox autoIncrementCheckbox;
 		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.NumericUpDown numericUpDown1;
-		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.NumericUpDown manualHourIncrement;
+		private System.Windows.Forms.Button fetchDatetimeButton;
+		private System.Windows.Forms.Label realTimeLabel;
+		private System.Windows.Forms.GroupBox realtimeBox;
+		private System.Windows.Forms.GroupBox adjustedTimeBox;
+		private System.Windows.Forms.Label adjustedTimeLabel;
+		private System.Windows.Forms.DateTimePicker realDatePicker;
+		private System.Windows.Forms.DateTimePicker adjustedDatePicker;
 	}
 }
 

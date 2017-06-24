@@ -3,10 +3,10 @@
   <PropertyGroup>
     <PublishUrlHistory>ftp://ftp.ngdx.com/public_html/clockwork/|C:\Users\Danilo\Desktop\New folder\|ftp://ftp.ngdx.com/|ftp://clockwork%40ftp.ngdx.com/|publish\</PublishUrlHistory>
     <InstallUrlHistory>http://www.ngdx.com/clockwork/</InstallUrlHistory>
-    <SupportUrlHistory>http://ngdx.com/clockwork/publish.htm|http://ngdx.com/clockwork</SupportUrlHistory>
+    <SupportUrlHistory>http://ngdx.com/clockwork|http://ngdx.com/clockwork/publish.htm</SupportUrlHistory>
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
-    <ErrorReportUrlHistory>http://ngdx.com/clockwork/publish.htm|http://ngdx.com/clockwork</ErrorReportUrlHistory>
+    <ErrorReportUrlHistory>http://ngdx.com/clockwork|http://ngdx.com/clockwork/publish.htm</ErrorReportUrlHistory>
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>true</VerifyUploadedFiles>
   </PropertyGroup>

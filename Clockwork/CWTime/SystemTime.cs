@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clockwork.CWTime
 {
@@ -29,12 +25,17 @@ namespace Clockwork.CWTime
 			return string.Format("{0}/{1}/{2}", Day, Month, Year);
 		}
 
-		public static implicit operator DateTime(SystemTime _time)
+		public static SystemTime FromLocalTime(DateTime _time)
 		{
-			return new DateTime(_time.Year, _time.Month, _time.Day, _time.Hour, _time.Minute, _time.Second);
+			return CreateTime(_time.ToLocalTime());
 		}
 
-		public static implicit operator SystemTime(DateTime _time)
+		public static SystemTime FromUniversalTime(DateTime _time)
+		{
+			return CreateTime(_time.ToUniversalTime());
+		}
+
+		static SystemTime CreateTime(DateTime _time)
 		{
 			var time = new SystemTime()
 			{
@@ -43,46 +44,25 @@ namespace Clockwork.CWTime
 				Day = (ushort)_time.Day,
 				Hour = (ushort)_time.Hour,
 				Minute = (ushort)_time.Minute,
-				Second = (ushort)_time.Second
+				Second = (ushort)_time.Second,
+				Milliseconds = (ushort)_time.Millisecond
 			};
 			return time;
 		}
 
-		public void Add(ushort hour, ushort minute, ushort second)
+		public static DateTime ToLocalDateTime(SystemTime _time)
 		{
-			Second += second;
-			Minute += minute;
-			Hour += hour;
-			ValidateTimeConstraints();
+			return new DateTime(_time.Year, _time.Month, _time.Day, _time.Hour, _time.Minute, _time.Second, _time.Milliseconds, DateTimeKind.Local);
 		}
 
-		public void AddSecond(ushort seconds)
+		public static DateTime ToUniversalDateTime(SystemTime _time)
 		{
-			Second += seconds;
-			ValidateTimeConstraints();
+			return new DateTime(_time.Year, _time.Month, _time.Day, _time.Hour, _time.Minute, _time.Second, _time.Milliseconds, DateTimeKind.Utc);
 		}
 
-		public void AddMinute(ushort minutes)
+		public override string ToString()
 		{
-			Minute += minutes;
-			ValidateTimeConstraints();
-		}
-
-		public void AddHour(ushort hours)
-		{
-			Hour += hours;
-			ValidateTimeConstraints();
-		}
-
-		void ValidateTimeConstraints()
-		{
-			Minute += (ushort)Math.Floor(Second / 60m);
-			Hour += (ushort)Math.Floor(Minute / 60m);
-			Day += (ushort)Math.Floor(Hour / 24m);
-			// Month é treta
-			Second %= 60;
-			Minute %= 60;
-			Hour %= 24;
+			return string.Format("{0} {1}/{2}/{3} {4}:{5}:{6}::{7}", base.ToString(), Day, Month, Year, Hour, Minute, Second, Milliseconds);
 		}
 	}
 }
