@@ -130,5 +130,17 @@ namespace Clockwork.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("06/25/2017 02:45:00")]
+        public global::System.DateTime LastDate {
+            get {
+                return ((global::System.DateTime)(this["LastDate"]));
+            }
+            set {
+                this["LastDate"] = value;
+            }
+        }
     }
 }

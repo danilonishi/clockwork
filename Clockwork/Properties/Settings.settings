@@ -29,5 +29,8 @@
     <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="LastDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">06/25/2017 02:45:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

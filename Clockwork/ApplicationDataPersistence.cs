@@ -11,6 +11,7 @@ namespace Clockwork
 		{
 			public int mhour, mmin, msec, ahour, amin, asec;
 			public bool restore;
+			public DateTime lastDate;
 		}
 
 		const string companyName = "DaniloNishimura";
@@ -30,14 +31,15 @@ namespace Clockwork
 
 		static public void SaveToAppData()
 		{
-			Console.WriteLine("SaveToAppData...");
 			if (!Directory.Exists(companyFolderPath))
-			{
-				Console.WriteLine("... Creating Directory: " + companyFolderPath);
 				Directory.CreateDirectory(companyFolderPath);
-			}
 
-			Console.WriteLine("... creating persistance data");
+			if (File.Exists(oldConfigFilePath))
+				File.Delete(oldConfigFilePath);
+
+			if (File.Exists(configFilePath))
+				File.Move(configFilePath, oldConfigFilePath);
+
 			AppData data = new AppData()
 			{
 				mhour = Properties.Settings.Default.ManualHour,
@@ -46,51 +48,14 @@ namespace Clockwork
 				ahour = Properties.Settings.Default.AutoHour,
 				amin = Properties.Settings.Default.AutoMinute,
 				asec = Properties.Settings.Default.AutoSecond,
-				restore = Properties.Settings.Default.RestoreOnClose
+				restore = Properties.Settings.Default.RestoreOnClose,
+				lastDate = Properties.Settings.Default.LastDate
 			};
 
-			if (File.Exists(configFilePath))
+			using (StreamWriter file = new StreamWriter(configFilePath))
 			{
-				Console.WriteLine("... backing up previous config file");
-				File.Move(configFilePath, oldConfigFilePath);
-			}
-
-			try
-			{
-				Console.WriteLine("... starting file write");
-				// Try writing new config file
-				using (StreamWriter file = new StreamWriter(configFilePath))
-				{
-					XmlSerializer writer = new XmlSerializer(typeof(AppData));
-					Console.WriteLine("... serializing data");
-					writer.Serialize(file, data);
-					file.Close();
-					Console.WriteLine("... successfully saved");
-				}
-				if (File.Exists(oldConfigFilePath))
-				{
-					Console.WriteLine("... removing backup");
-					File.Delete(oldConfigFilePath);
-				}
-			}
-			catch (System.Exception exp)
-			{
-				Console.WriteLine("... [ERROR]: " + exp.ToString());
-				// If error, restore old if existent
-				if (File.Exists(oldConfigFilePath))
-				{
-					if (File.Exists(configFilePath))
-					{
-						Console.WriteLine("... removing config file");
-						File.Delete(configFilePath);
-					}
-					Console.WriteLine("... restoring backup");
-					File.Move(oldConfigFilePath, configFilePath);
-				}
-			}
-			finally
-			{
-				Console.WriteLine("... finished.");
+				XmlSerializer writer = new XmlSerializer(typeof(AppData));
+				writer.Serialize(file, data);
 			}
 		}
 
@@ -118,6 +83,7 @@ namespace Clockwork
 					Properties.Settings.Default.AutoMinute = (ushort)data.amin;
 					Properties.Settings.Default.AutoSecond = (ushort)data.asec;
 					Properties.Settings.Default.RestoreOnClose = data.restore;
+					Properties.Settings.Default.LastDate = data.lastDate;
 				}
 				Console.WriteLine("... done");
 				return true;

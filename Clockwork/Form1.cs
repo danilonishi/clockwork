@@ -17,7 +17,6 @@ namespace Clockwork
 		DateTime startupDateTime;
 		DateTime adjustedDateTime;
 		DateTime freezeTime;
-		bool isDirty;
 		bool isTimeFrozen;
 
 		bool IsRunAsAdministrator()
@@ -75,9 +74,8 @@ namespace Clockwork
 				if (ApplicationDataPersistence.HasAppDataConfig())
 				{
 					ApplicationDataPersistence.ReadFromAppData();
+					Properties.Settings.Default.FirstRun = false;
 				}
-				Properties.Settings.Default.FirstRun = false;
-				Properties.Settings.Default.Save();
 			}
 
 			manualHourIncrement.Value = Properties.Settings.Default.ManualHour;
@@ -87,6 +85,7 @@ namespace Clockwork
 			automaticMinuteIncrement.Value = Properties.Settings.Default.AutoMinute;
 			automaticSecondIncrement.Value = Properties.Settings.Default.AutoSecond;
 			fetchDatetimeCheckbox.Checked = Properties.Settings.Default.RestoreOnClose;
+			// last date needs to be restored after web time refresh;
 		}
 
 		private void InitializeValues()
@@ -96,13 +95,32 @@ namespace Clockwork
 			watch = new Stopwatch();
 
 			RefreshWebTime();
+
+			if (!Properties.Settings.Default.FirstRun)
+			{
+				DateTime _lastDate = Properties.Settings.Default.LastDate;
+				if (_lastDate.Year > 1000)
+				{
+					/*
+					var msg = string.Format("Restaurar data da última execução?\n{0}", _lastDate.ToString());
+					var result = MessageBox.Show(msg, "Recuperar valor salvo", MessageBoxButtons.YesNo);
+					if (result == DialogResult.Yes)
+					{
+						adjustedDateTime = Properties.Settings.Default.LastDate;
+						customTime.SetSystemTime(adjustedDateTime);
+					}
+					*/
+					adjustedDateTime = Properties.Settings.Default.LastDate;
+					customTime.SetSystemTime(adjustedDateTime);
+				}
+			}
 		}
 
 		private void RefreshWebTime()
 		{
 			if (customTime.GetWebTime(out DateTime time))
 			{
-				startupDateTime = adjustedDateTime = realDatePicker.Value = adjustedDatePicker.Value = time;
+				adjustedDateTime = startupDateTime = realDatePicker.Value = adjustedDatePicker.Value = time;
 			}
 			else
 			{
@@ -110,14 +128,15 @@ namespace Clockwork
 				startupDateTime = DateTime.UtcNow.ToLocalTime();
 			}
 			watch.Restart();
-			customTime.SetSystemTime(time);
+			customTime.SetSystemTime(adjustedDateTime);
 		}
+
+		string dateString = "HH:mm:ss";
+		
+		DateTime localDisplayTime;
 
 		private void UpdateTimers()
 		{
-			string dateString = "HH:mm:ss";
-			double ms = watch.Elapsed.TotalMilliseconds;
-
 			adjustedDateTime = customTime.GetSystemTime();
 
 			if (isTimeFrozen)
@@ -125,14 +144,11 @@ namespace Clockwork
 				adjustedDateTime = freezeTime;
 				customTime.SetSystemTime(adjustedDateTime);
 			}
+			localDisplayTime = adjustedDateTime.ToLocalTime();
+			adjustedDatePicker.Value = adjustedTimePicker.Value = localDisplayTime;
+			adjustedTimeLabel.Text = localDisplayTime.ToString(dateString);
 
-			adjustedTimeLabel.Text = adjustedDateTime.ToLocalTime().ToString(dateString);
-			adjustedDatePicker.Value = adjustedDateTime.ToLocalTime();
-			adjustedTimePicker.Value = adjustedDateTime.ToLocalTime();
-
-			var expectedRealTime = startupDateTime.AddMilliseconds(ms);
-			realTimePicker.Value = expectedRealTime;
-			realDatePicker.Value = expectedRealTime;
+			realTimePicker.Value = realDatePicker.Value = startupDateTime.AddMilliseconds(watch.Elapsed.TotalMilliseconds);
 		}
 
 		void DisableAutomaticTimeChange()
@@ -153,7 +169,11 @@ namespace Clockwork
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			if (isDirty && Properties.Settings.Default.RestoreOnClose)
+			Properties.Settings.Default.LastDate = adjustedDateTime.ToLocalTime();
+			Properties.Settings.Default.FirstRun = false;
+			Properties.Settings.Default.Save();
+			ApplicationDataPersistence.SaveToAppData();
+			if (Properties.Settings.Default.RestoreOnClose)
 			{
 				DisableAutomaticTimeChange();
 				customTime.SyncSystemTimeToWeb();
@@ -165,7 +185,6 @@ namespace Clockwork
 			adjustedDateTime = customTime.GetSystemTime();
 			adjustedDateTime = adjustedDateTime.AddHours(hour).AddMinutes(minute).AddSeconds(second);
 			customTime.SetSystemTime(adjustedDateTime);
-			isDirty = true;
 		}
 
 		#region Time UI Controls
@@ -199,12 +218,7 @@ namespace Clockwork
 		private void ManualHourChanged(object sender, EventArgs e)
 		{
 			(sender as NumericUpDown).Value %= 24;
-			ushort hour1 = (ushort)Properties.Settings.Default["ManualHour"];
-			ushort hour2 = (ushort)(sender as NumericUpDown).Value;
-			if (hour1 != hour2)
-			{
-				SaveValue("ManualHour", (ushort)(sender as NumericUpDown).Value);
-			}
+			SaveValue("ManualHour", (ushort)(sender as NumericUpDown).Value);
 		}
 
 		private void ManualMinuteChanged(object sender, EventArgs e)
@@ -241,9 +255,7 @@ namespace Clockwork
 			bool reenable = autoIncrementCheckbox.Checked;
 			DisableAutomaticTimeChange();
 			(sender as NumericUpDown).Value %= cap;
-			ushort value1 = (ushort)(sender as NumericUpDown).Value;
-			ushort value2 = (ushort)Properties.Settings.Default[method];
-			if (value1 != value2)
+			if ((ushort)(sender as NumericUpDown).Value != (ushort)Properties.Settings.Default[method])
 			{
 				SaveValue(method, (ushort)(sender as NumericUpDown).Value);
 			}
@@ -263,12 +275,11 @@ namespace Clockwork
 		{
 			if ((sender as CheckBox).Checked)
 			{
-				int hour, minute, second;
-				hour = Properties.Settings.Default.AutoHour;
-				minute = Properties.Settings.Default.AutoMinute;
-				second = Properties.Settings.Default.AutoSecond;
+				updater.EventMilliseconds =
+					Properties.Settings.Default.AutoSecond * 1000 +
+					Properties.Settings.Default.AutoMinute * 60000 +
+					Properties.Settings.Default.AutoHour * 3600000;
 
-				updater.EventMilliseconds = second * 1000 + minute * 60000 + hour * 3600000;
 				updater.OnTimer += HandleUpdaterTimer;
 				updater.OnUpdate += HandleUpdaterUpdate;
 				updater.Restart();
@@ -325,7 +336,7 @@ namespace Clockwork
 			autoIncrementButton.Text = autoIncrementCheckbox.Checked ? "Desativar autoincrementação" : "Autoincrementar";
 		}
 
-		private void adjustedTimePicker_ValueChanged(object sender, EventArgs e)
+		private void AdjustedTimePicker_ValueChanged(object sender, EventArgs e)
 		{
 			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
 			{
@@ -334,7 +345,7 @@ namespace Clockwork
 			}
 		}
 
-		private void adjustedDatePicker_ValueChanged(object sender, EventArgs e)
+		private void AdjustedDatePicker_ValueChanged(object sender, EventArgs e)
 		{
 			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
 			{
@@ -360,6 +371,7 @@ namespace Clockwork
 			manualHourButton.Enabled = manualMinuteButton.Enabled = manualSecondButton.Enabled = controlsEnabled;
 			autoIncrementButton.Enabled = controlsEnabled;
 			automaticProgressbar.Enabled = controlsEnabled;
+			fetchDatetimeButton.Enabled = controlsEnabled;
 
 			if (controlsEnabled)
 			{
