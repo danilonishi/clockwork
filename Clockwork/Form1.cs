@@ -301,5 +301,14 @@ namespace Clockwork
 				customTime.SetSystemTime(adjustedDateTime); // ToLocal?
 			}
 		}
+
+		private void adjustedDatePicker_ValueChanged(object sender, EventArgs e)
+		{
+			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
+			{
+				adjustedDateTime = (sender as DateTimePicker).Value;
+				customTime.SetSystemTime(adjustedDateTime); // ToLocal?
+			}
+		}
 	}
 }

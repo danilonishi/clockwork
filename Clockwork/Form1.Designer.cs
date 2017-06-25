@@ -278,6 +278,7 @@
 			resources.ApplyResources(this.adjustedDatePicker, "adjustedDatePicker");
 			this.adjustedDatePicker.Name = "adjustedDatePicker";
 			this.adjustedDatePicker.CloseUp += new System.EventHandler(this.AdjustedDatePicker_CloseUp);
+			this.adjustedDatePicker.ValueChanged += new System.EventHandler(this.adjustedDatePicker_ValueChanged);
 			// 
 			// Form1
 			// 
