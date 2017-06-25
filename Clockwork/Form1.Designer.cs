@@ -60,6 +60,7 @@
 			this.adjustedTimeLabel = new System.Windows.Forms.Label();
 			this.realDatePicker = new System.Windows.Forms.DateTimePicker();
 			this.adjustedDatePicker = new System.Windows.Forms.DateTimePicker();
+			this.freezeClockButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.manualHourIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualMinuteIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualSecondIncrement)).BeginInit();
@@ -150,6 +151,7 @@
 			// 
 			// autoIncrementBox
 			// 
+			this.autoIncrementBox.Controls.Add(this.freezeClockButton);
 			this.autoIncrementBox.Controls.Add(this.autoIncrementButton);
 			this.autoIncrementBox.Controls.Add(this.autoIncrementCheckbox);
 			this.autoIncrementBox.Controls.Add(this.autoHourLabel);
@@ -280,6 +282,13 @@
 			this.adjustedDatePicker.CloseUp += new System.EventHandler(this.AdjustedDatePicker_CloseUp);
 			this.adjustedDatePicker.ValueChanged += new System.EventHandler(this.adjustedDatePicker_ValueChanged);
 			// 
+			// freezeClockButton
+			// 
+			resources.ApplyResources(this.freezeClockButton, "freezeClockButton");
+			this.freezeClockButton.Name = "freezeClockButton";
+			this.freezeClockButton.UseVisualStyleBackColor = true;
+			this.freezeClockButton.Click += new System.EventHandler(this.FreezeClockButton_Click);
+			// 
 			// Form1
 			// 
 			this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
@@ -347,6 +356,7 @@
 		private System.Windows.Forms.Button autoIncrementButton;
 		private System.Windows.Forms.DateTimePicker realTimePicker;
 		private System.Windows.Forms.DateTimePicker adjustedTimePicker;
+		private System.Windows.Forms.Button freezeClockButton;
 	}
 }
 

@@ -73,7 +73,7 @@ namespace Clockwork
 					File.Delete(oldConfigFilePath);
 				}
 			}
-			catch(System.Exception exp)
+			catch (System.Exception exp)
 			{
 				Console.WriteLine("... [ERROR]: " + exp.ToString());
 				// If error, restore old if existent

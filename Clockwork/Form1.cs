@@ -17,7 +17,9 @@ namespace Clockwork
 		Stopwatch updateWatch;
 		DateTime startupDateTime;
 		DateTime adjustedDateTime;
+		DateTime freezeTime;
 		bool isDirty;
+		bool isTimeFrozen;
 
 		bool IsRunAsAdministrator()
 		{
@@ -120,6 +122,12 @@ namespace Clockwork
 
 			adjustedDateTime = customTime.GetSystemTime();
 
+			if (isTimeFrozen)
+			{
+				adjustedDateTime = freezeTime;
+				customTime.SetSystemTime(adjustedDateTime);
+			}
+
 			adjustedTimeLabel.Text = adjustedDateTime.ToLocalTime().ToString(dateString);
 			adjustedDatePicker.Value = adjustedDateTime.ToLocalTime();
 			adjustedTimePicker.Value = adjustedDateTime.ToLocalTime();
@@ -134,10 +142,9 @@ namespace Clockwork
 			SetAutoIncrementState(false);
 		}
 
-
 		void SaveValue<T>(string key, T value)
 		{
-			if(!Properties.Settings.Default[key].Equals(value))
+			if (!Properties.Settings.Default[key].Equals(value))
 			{
 				Properties.Settings.Default[key] = value;
 				Properties.Settings.Default.Save();
@@ -335,6 +342,16 @@ namespace Clockwork
 			{
 				adjustedDateTime = (sender as DateTimePicker).Value;
 				customTime.SetSystemTime(adjustedDateTime);
+			}
+		}
+
+		private void FreezeClockButton_Click(object sender, EventArgs e)
+		{
+			isTimeFrozen = !isTimeFrozen;
+			(sender as Button).Text = isTimeFrozen ? "Descongelar relógio" : "Congelar relógio";
+			if (isTimeFrozen)
+			{
+				freezeTime = adjustedDateTime;
 			}
 		}
 	}

@@ -408,143 +408,35 @@
   <data name="&gt;&gt;manualIncrementBox.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;autoIncrementButton.Name" xml:space="preserve">
-    <value>autoIncrementButton</value>
+  <data name="freezeClockButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>221, 73</value>
   </data>
-  <data name="&gt;&gt;autoIncrementButton.Type" xml:space="preserve">
+  <data name="freezeClockButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 39</value>
+  </data>
+  <data name="freezeClockButton.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="freezeClockButton.Text" xml:space="preserve">
+    <value>Congelar relógio</value>
+  </data>
+  <data name="&gt;&gt;freezeClockButton.Name" xml:space="preserve">
+    <value>freezeClockButton</value>
+  </data>
+  <data name="&gt;&gt;freezeClockButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;autoIncrementButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;freezeClockButton.Parent" xml:space="preserve">
     <value>autoIncrementBox</value>
   </data>
-  <data name="&gt;&gt;autoIncrementButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;freezeClockButton.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementCheckbox.Name" xml:space="preserve">
-    <value>autoIncrementCheckbox</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementCheckbox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementCheckbox.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementCheckbox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;autoHourLabel.Name" xml:space="preserve">
-    <value>autoHourLabel</value>
-  </data>
-  <data name="&gt;&gt;autoHourLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoHourLabel.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;autoHourLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;autoSecondLabel.Name" xml:space="preserve">
-    <value>autoSecondLabel</value>
-  </data>
-  <data name="&gt;&gt;autoSecondLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoSecondLabel.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;autoSecondLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;automaticSecondIncrement.Name" xml:space="preserve">
-    <value>automaticSecondIncrement</value>
-  </data>
-  <data name="&gt;&gt;automaticSecondIncrement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;automaticSecondIncrement.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;automaticSecondIncrement.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;autoMinuteLabel.Name" xml:space="preserve">
-    <value>autoMinuteLabel</value>
-  </data>
-  <data name="&gt;&gt;autoMinuteLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoMinuteLabel.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;autoMinuteLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;automaticMinuteIncrement.Name" xml:space="preserve">
-    <value>automaticMinuteIncrement</value>
-  </data>
-  <data name="&gt;&gt;automaticMinuteIncrement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;automaticMinuteIncrement.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;automaticMinuteIncrement.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;automaticHourIncrement.Name" xml:space="preserve">
-    <value>automaticHourIncrement</value>
-  </data>
-  <data name="&gt;&gt;automaticHourIncrement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;automaticHourIncrement.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;automaticHourIncrement.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;automaticProgressbar.Name" xml:space="preserve">
-    <value>automaticProgressbar</value>
-  </data>
-  <data name="&gt;&gt;automaticProgressbar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;automaticProgressbar.Parent" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;automaticProgressbar.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="autoIncrementBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 246</value>
-  </data>
-  <data name="autoIncrementBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 122</value>
-  </data>
-  <data name="autoIncrementBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="autoIncrementBox.Text" xml:space="preserve">
-    <value>Incrementação Automática</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementBox.Name" xml:space="preserve">
-    <value>autoIncrementBox</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;autoIncrementBox.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="autoIncrementButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 73</value>
   </data>
   <data name="autoIncrementButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>412, 39</value>
+    <value>198, 39</value>
   </data>
   <data name="autoIncrementButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -562,7 +454,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;autoIncrementButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="autoIncrementCheckbox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -592,7 +484,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;autoIncrementCheckbox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="autoHourLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -622,7 +514,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;autoHourLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="autoSecondLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -652,7 +544,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;autoSecondLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="automaticSecondIncrement.Location" type="System.Drawing.Point, System.Drawing">
     <value>283, 34</value>
@@ -673,7 +565,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;automaticSecondIncrement.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="autoMinuteLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -703,7 +595,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;autoMinuteLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="automaticMinuteIncrement.Location" type="System.Drawing.Point, System.Drawing">
     <value>144, 34</value>
@@ -724,7 +616,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;automaticMinuteIncrement.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="automaticHourIncrement.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 34</value>
@@ -745,7 +637,7 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;automaticHourIncrement.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="automaticProgressbar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -769,7 +661,31 @@
     <value>autoIncrementBox</value>
   </data>
   <data name="&gt;&gt;automaticProgressbar.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
+  </data>
+  <data name="autoIncrementBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 246</value>
+  </data>
+  <data name="autoIncrementBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>429, 122</value>
+  </data>
+  <data name="autoIncrementBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="autoIncrementBox.Text" xml:space="preserve">
+    <value>Incrementação Automática</value>
+  </data>
+  <data name="&gt;&gt;autoIncrementBox.Name" xml:space="preserve">
+    <value>autoIncrementBox</value>
+  </data>
+  <data name="&gt;&gt;autoIncrementBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoIncrementBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;autoIncrementBox.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -778,7 +694,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="fetchDatetimeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 377</value>
+    <value>303, 377</value>
   </data>
   <data name="fetchDatetimeButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 23</value>
@@ -800,6 +716,21 @@
   </data>
   <data name="&gt;&gt;fetchDatetimeButton.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="realTimePicker.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="realTimePicker.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 32pt</value>
+  </data>
+  <data name="realTimePicker.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 15</value>
+  </data>
+  <data name="realTimePicker.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 56</value>
+  </data>
+  <data name="realTimePicker.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
   </data>
   <data name="&gt;&gt;realTimePicker.Name" xml:space="preserve">
     <value>realTimePicker</value>
@@ -836,81 +767,6 @@
   </data>
   <data name="&gt;&gt;realtimeBox.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="realTimePicker.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="realTimePicker.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 32pt</value>
-  </data>
-  <data name="realTimePicker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 15</value>
-  </data>
-  <data name="realTimePicker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 56</value>
-  </data>
-  <data name="realTimePicker.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;realTimePicker.Name" xml:space="preserve">
-    <value>realTimePicker</value>
-  </data>
-  <data name="&gt;&gt;realTimePicker.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;realTimePicker.Parent" xml:space="preserve">
-    <value>realtimeBox</value>
-  </data>
-  <data name="&gt;&gt;realTimePicker.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimePicker.Name" xml:space="preserve">
-    <value>adjustedTimePicker</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimePicker.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimePicker.Parent" xml:space="preserve">
-    <value>adjustedTimeBox</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimePicker.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeLabel.Name" xml:space="preserve">
-    <value>adjustedTimeLabel</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeLabel.Parent" xml:space="preserve">
-    <value>adjustedTimeBox</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="adjustedTimeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 12</value>
-  </data>
-  <data name="adjustedTimeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 81</value>
-  </data>
-  <data name="adjustedTimeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="adjustedTimeBox.Text" xml:space="preserve">
-    <value>Horário Ajustado</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeBox.Name" xml:space="preserve">
-    <value>adjustedTimeBox</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;adjustedTimeBox.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="adjustedTimePicker.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 32pt</value>
@@ -972,6 +828,30 @@
   <data name="&gt;&gt;adjustedTimeLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="adjustedTimeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>240, 12</value>
+  </data>
+  <data name="adjustedTimeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 81</value>
+  </data>
+  <data name="adjustedTimeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="adjustedTimeBox.Text" xml:space="preserve">
+    <value>Horário Ajustado</value>
+  </data>
+  <data name="&gt;&gt;adjustedTimeBox.Name" xml:space="preserve">
+    <value>adjustedTimeBox</value>
+  </data>
+  <data name="&gt;&gt;adjustedTimeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;adjustedTimeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;adjustedTimeBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="realDatePicker.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -1021,7 +901,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>469, 412</value>
+    <value>470, 412</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

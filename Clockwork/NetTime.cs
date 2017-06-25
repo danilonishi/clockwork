@@ -38,7 +38,7 @@ namespace Clockwork
 
 		public DateTime SyncSystemTimeToWeb()
 		{
-			if(GetWebTime(out DateTime datetime))
+			if (GetWebTime(out DateTime datetime))
 			{
 				SystemTime _time = SystemTime.FromUniversalTime(datetime);
 				NativeMethods.Win32SetSystemTime(ref _time);
