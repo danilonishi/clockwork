@@ -26,5 +26,8 @@
     <Setting Name="PreviewTime" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">06/11/2017 14:52:00</Value>
     </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

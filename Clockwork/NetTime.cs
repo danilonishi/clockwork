@@ -26,35 +26,39 @@ namespace Clockwork
 			}
 			catch (Exception exp)
 			{
+				dt = DateTime.UtcNow;
 				Console.WriteLine(exp);
 			}
 			finally
 			{
 				myHttpWebRequest.Abort();
 			}
-			dt = DateTime.MinValue;
 			return false;
 		}
 
 		public DateTime SyncSystemTimeToWeb()
 		{
-			GetWebTime(out DateTime datetime);
-			SystemTime _time;
-			_time = SystemTime.FromUniversalTime(datetime);
-			NativeMethods.Win32SetSystemTime(ref _time);
+			if(GetWebTime(out DateTime datetime))
+			{
+				SystemTime _time = SystemTime.FromUniversalTime(datetime);
+				NativeMethods.Win32SetSystemTime(ref _time);
+			}
 			return datetime;
 		}
 
 		public DateTime SetSystemTime(DateTime time)
 		{
 			SystemTime _time;
-			if (time.Kind == DateTimeKind.Local)
+			switch (time.Kind)
 			{
-				_time = SystemTime.FromUniversalTime(time.ToUniversalTime());
-			}
-			else
-			{
-				_time = SystemTime.FromUniversalTime(time);
+				case DateTimeKind.Unspecified:
+				case DateTimeKind.Utc:
+				default:
+					_time = SystemTime.FromUniversalTime(time);
+					break;
+				case DateTimeKind.Local:
+					_time = SystemTime.FromUniversalTime(time.ToUniversalTime());
+					break;
 			}
 			NativeMethods.Win32SetSystemTime(ref _time);
 			return SystemTime.ToUniversalDateTime(_time);
@@ -63,20 +67,17 @@ namespace Clockwork
 		public DateTime GetSystemTime(DateTimeKind kind = DateTimeKind.Utc)
 		{
 			SystemTime _time = new SystemTime();
-			NativeMethods.Win32GetSystemTime(ref _time);
 			DateTime time;
-
+			NativeMethods.Win32GetSystemTime(ref _time);
 			switch (kind)
 			{
 				case DateTimeKind.Unspecified:
 				case DateTimeKind.Utc:
+				default:
 					time = SystemTime.ToUniversalDateTime(_time);
 					break;
 				case DateTimeKind.Local:
 					time = SystemTime.ToLocalDateTime(_time);
-					break;
-				default:
-					time = SystemTime.ToUniversalDateTime(_time);
 					break;
 			}
 			return time;

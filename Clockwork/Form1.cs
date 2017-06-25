@@ -55,12 +55,12 @@ namespace Clockwork
 
 			if (ApplicationDeployment.IsNetworkDeployed)
 			{
-				this.Text = string.Format("Clockwork - v{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
+				Text = string.Format("Clockwork - v{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
 			}
 			else
 			{
 				string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-				this.Text = string.Format("Clockwork - v{0}", version);
+				Text = string.Format("Clockwork - v{0}", version);
 			}
 
 			LoadProperties();
@@ -69,6 +69,16 @@ namespace Clockwork
 
 		void LoadProperties()
 		{
+			if (Properties.Settings.Default.FirstRun)
+			{
+				if (ApplicationDataPersistence.HasAppDataConfig())
+				{
+					ApplicationDataPersistence.ReadFromAppData();
+				}
+				Properties.Settings.Default.FirstRun = false;
+				Properties.Settings.Default.Save();
+			}
+
 			manualHourIncrement.Value = Properties.Settings.Default.ManualHour;
 			manualMinuteIncrement.Value = Properties.Settings.Default.ManualMinute;
 			manualSecondIncrement.Value = Properties.Settings.Default.ManualSecond;
@@ -92,15 +102,15 @@ namespace Clockwork
 		{
 			if (customTime.GetWebTime(out DateTime time))
 			{
-				startupDateTime = adjustedDateTime = time;
-				realDatePicker.Value = adjustedDatePicker.Value = time;
-				watch.Restart();
-				customTime.SetSystemTime(time);
+				startupDateTime = adjustedDateTime = realDatePicker.Value = adjustedDatePicker.Value = time;
 			}
 			else
 			{
-				startupDateTime = adjustedDateTime = realDatePicker.Value = adjustedDatePicker.Value = DateTime.UtcNow;
+				adjustedDateTime = realDatePicker.Value = adjustedDatePicker.Value = DateTime.UtcNow;
+				startupDateTime = DateTime.UtcNow.ToLocalTime();
 			}
+			watch.Restart();
+			customTime.SetSystemTime(time);
 		}
 
 		private void UpdateTimers()
@@ -116,7 +126,6 @@ namespace Clockwork
 
 			var expectedRealTime = startupDateTime.AddMilliseconds(ms);
 			realTimePicker.Value = expectedRealTime;
-			//realTimeLabel.Text = expectedRealTime.ToString(dateString);
 			realDatePicker.Value = expectedRealTime;
 		}
 
@@ -128,8 +137,13 @@ namespace Clockwork
 
 		void SaveValue<T>(string key, T value)
 		{
-			Properties.Settings.Default[key] = value;
-			Properties.Settings.Default.Save();
+			if(!Properties.Settings.Default[key].Equals(value))
+			{
+				Properties.Settings.Default[key] = value;
+				Properties.Settings.Default.Save();
+
+				ApplicationDataPersistence.SaveToAppData();
+			}
 		}
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -145,7 +159,7 @@ namespace Clockwork
 		{
 			adjustedDateTime = customTime.GetSystemTime();
 			adjustedDateTime = adjustedDateTime.AddHours(hour).AddMinutes(minute).AddSeconds(second);
-			customTime.SetSystemTime(adjustedDateTime); // ToLocal?
+			customTime.SetSystemTime(adjustedDateTime);
 			isDirty = true;
 		}
 
@@ -153,7 +167,10 @@ namespace Clockwork
 
 		private void FetchDatetimeCheckChanged(object sender, EventArgs e)
 		{
-			SaveValue("RestoreOnClose", (sender as CheckBox).Checked);
+			if ((sender as CheckBox).Checked != Properties.Settings.Default.RestoreOnClose)
+			{
+				SaveValue("RestoreOnClose", (sender as CheckBox).Checked);
+			}
 		}
 
 		private void ManualHourClick(object sender, EventArgs e)
@@ -177,7 +194,12 @@ namespace Clockwork
 		private void ManualHourChanged(object sender, EventArgs e)
 		{
 			(sender as NumericUpDown).Value %= 24;
-			SaveValue("ManualHour", (ushort)(sender as NumericUpDown).Value);
+			ushort hour1 = (ushort)Properties.Settings.Default["ManualHour"];
+			ushort hour2 = (ushort)(sender as NumericUpDown).Value;
+			if (hour1 != hour2)
+			{
+				SaveValue("ManualHour", (ushort)(sender as NumericUpDown).Value);
+			}
 		}
 
 		private void ManualMinuteChanged(object sender, EventArgs e)
@@ -214,7 +236,12 @@ namespace Clockwork
 			bool reenable = autoIncrementCheckbox.Checked;
 			DisableAutomaticTimeChange();
 			(sender as NumericUpDown).Value %= cap;
-			SaveValue(method, (ushort)(sender as NumericUpDown).Value);
+			ushort value1 = (ushort)(sender as NumericUpDown).Value;
+			ushort value2 = (ushort)Properties.Settings.Default[method];
+			if (value1 != value2)
+			{
+				SaveValue(method, (ushort)(sender as NumericUpDown).Value);
+			}
 			if (reenable)
 			{
 				SetAutoIncrementState(true);
@@ -265,7 +292,7 @@ namespace Clockwork
 			DisableAutomaticTimeChange();
 			RefreshWebTime();
 		}
-		
+
 		private void AdjustedDatePicker_CloseUp(object sender, EventArgs e)
 		{
 			var targetDate = (sender as DateTimePicker).Value;
@@ -298,7 +325,7 @@ namespace Clockwork
 			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
 			{
 				adjustedDateTime = (sender as DateTimePicker).Value;
-				customTime.SetSystemTime(adjustedDateTime); // ToLocal?
+				customTime.SetSystemTime(adjustedDateTime);
 			}
 		}
 
@@ -307,7 +334,7 @@ namespace Clockwork
 			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
 			{
 				adjustedDateTime = (sender as DateTimePicker).Value;
-				customTime.SetSystemTime(adjustedDateTime); // ToLocal?
+				customTime.SetSystemTime(adjustedDateTime);
 			}
 		}
 	}
