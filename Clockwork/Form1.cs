@@ -14,7 +14,6 @@ namespace Clockwork
 		CustomTime customTime;
 
 		Stopwatch watch;
-		Stopwatch updateWatch;
 		DateTime startupDateTime;
 		DateTime adjustedDateTime;
 		DateTime freezeTime;
@@ -95,7 +94,6 @@ namespace Clockwork
 			updater = new AutoTimeUpdater();
 			customTime = new CustomTime();
 			watch = new Stopwatch();
-			updateWatch = new Stopwatch();
 
 			RefreshWebTime();
 		}
@@ -352,6 +350,24 @@ namespace Clockwork
 			if (isTimeFrozen)
 			{
 				freezeTime = adjustedDateTime;
+			}
+
+			bool controlsEnabled = !isTimeFrozen;
+
+			adjustedDatePicker.Enabled = adjustedTimePicker.Enabled = controlsEnabled;
+			manualHourIncrement.Enabled = manualMinuteIncrement.Enabled = manualSecondIncrement.Enabled = controlsEnabled;
+			automaticHourIncrement.Enabled = automaticMinuteIncrement.Enabled = automaticSecondIncrement.Enabled = controlsEnabled;
+			manualHourButton.Enabled = manualMinuteButton.Enabled = manualSecondButton.Enabled = controlsEnabled;
+			autoIncrementButton.Enabled = controlsEnabled;
+			automaticProgressbar.Enabled = controlsEnabled;
+
+			if (controlsEnabled)
+			{
+				updater.Start();
+			}
+			else
+			{
+				updater.Stop();
 			}
 		}
 	}
