@@ -62,11 +62,11 @@ namespace Clockwork
 				string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 				this.Text = string.Format("Clockwork - v{0}", version);
 			}
-			
+
 			LoadProperties();
 			InitializeValues();
 		}
-		
+
 		void LoadProperties()
 		{
 			manualHourIncrement.Value = Properties.Settings.Default.ManualHour;
@@ -107,20 +107,22 @@ namespace Clockwork
 		{
 			string dateString = "HH:mm:ss";
 			double ms = watch.Elapsed.TotalMilliseconds;
-			
+
 			adjustedDateTime = customTime.GetSystemTime();
 
 			adjustedTimeLabel.Text = adjustedDateTime.ToLocalTime().ToString(dateString);
 			adjustedDatePicker.Value = adjustedDateTime.ToLocalTime();
+			adjustedTimePicker.Value = adjustedDateTime.ToLocalTime();
 
 			var expectedRealTime = startupDateTime.AddMilliseconds(ms);
-			realTimeLabel.Text = expectedRealTime.ToString(dateString);
+			realTimePicker.Value = expectedRealTime;
+			//realTimeLabel.Text = expectedRealTime.ToString(dateString);
 			realDatePicker.Value = expectedRealTime;
 		}
 
 		void DisableAutomaticTimeChange()
 		{
-			autoIncrementCheckbox.Checked = false;
+			SetAutoIncrementState(false);
 		}
 
 
@@ -141,6 +143,7 @@ namespace Clockwork
 
 		void PerformTimeChange(ushort hour, ushort minute, ushort second)
 		{
+			adjustedDateTime = customTime.GetSystemTime();
 			adjustedDateTime = adjustedDateTime.AddHours(hour).AddMinutes(minute).AddSeconds(second);
 			customTime.SetSystemTime(adjustedDateTime); // ToLocal?
 			isDirty = true;
@@ -214,7 +217,7 @@ namespace Clockwork
 			SaveValue(method, (ushort)(sender as NumericUpDown).Value);
 			if (reenable)
 			{
-				autoIncrementCheckbox.Checked = true;
+				SetAutoIncrementState(true);
 			}
 		}
 
@@ -262,14 +265,9 @@ namespace Clockwork
 			DisableAutomaticTimeChange();
 			RefreshWebTime();
 		}
-
-		private void DatetimeAdjustmentChanged(object sender, EventArgs e)
-		{
-			//Console.WriteLine("Changed");
-		}
+		
 		private void AdjustedDatePicker_CloseUp(object sender, EventArgs e)
 		{
-			Console.WriteLine("CLOSE UP");
 			var targetDate = (sender as DateTimePicker).Value;
 			var currentTime = adjustedDateTime;
 
@@ -277,6 +275,31 @@ namespace Clockwork
 			adjustedDateTime = combinedDate;
 			SystemTime time = SystemTime.FromUniversalTime(combinedDate);
 			customTime.SetSystemTime(adjustedDateTime);
+		}
+
+		private void AutoIncrementButtonClick(object sender, EventArgs e)
+		{
+			SetAutoIncrementState(!autoIncrementCheckbox.Checked);
+		}
+
+		void SetAutoIncrementState(bool enabled)
+		{
+			autoIncrementCheckbox.Checked = enabled;
+			UpdateIncrementButtonText();
+		}
+
+		void UpdateIncrementButtonText()
+		{
+			autoIncrementButton.Text = autoIncrementCheckbox.Checked ? "Desativar autoincrementação" : "Autoincrementar";
+		}
+
+		private void adjustedTimePicker_ValueChanged(object sender, EventArgs e)
+		{
+			if ((adjustedDateTime.ToLocalTime() - (sender as DateTimePicker).Value).TotalSeconds != 0)
+			{
+				adjustedDateTime = (sender as DateTimePicker).Value;
+				customTime.SetSystemTime(adjustedDateTime); // ToLocal?
+			}
 		}
 	}
 }
