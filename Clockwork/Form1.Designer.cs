@@ -56,10 +56,10 @@
 			this.realtimeBox = new System.Windows.Forms.GroupBox();
 			this.realTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.adjustedTimeBox = new System.Windows.Forms.GroupBox();
+			this.adjustedTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.adjustedTimeLabel = new System.Windows.Forms.Label();
 			this.realDatePicker = new System.Windows.Forms.DateTimePicker();
 			this.adjustedDatePicker = new System.Windows.Forms.DateTimePicker();
-			this.adjustedTimePicker = new System.Windows.Forms.DateTimePicker();
 			((System.ComponentModel.ISupportInitialize)(this.manualHourIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualMinuteIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualSecondIncrement)).BeginInit();
@@ -251,6 +251,15 @@
 			this.adjustedTimeBox.Name = "adjustedTimeBox";
 			this.adjustedTimeBox.TabStop = false;
 			// 
+			// adjustedTimePicker
+			// 
+			this.adjustedTimePicker.CalendarMonthBackground = System.Drawing.Color.Transparent;
+			resources.ApplyResources(this.adjustedTimePicker, "adjustedTimePicker");
+			this.adjustedTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+			this.adjustedTimePicker.Name = "adjustedTimePicker";
+			this.adjustedTimePicker.ShowUpDown = true;
+			this.adjustedTimePicker.ValueChanged += new System.EventHandler(this.adjustedTimePicker_ValueChanged);
+			// 
 			// adjustedTimeLabel
 			// 
 			resources.ApplyResources(this.adjustedTimeLabel, "adjustedTimeLabel");
@@ -269,15 +278,6 @@
 			resources.ApplyResources(this.adjustedDatePicker, "adjustedDatePicker");
 			this.adjustedDatePicker.Name = "adjustedDatePicker";
 			this.adjustedDatePicker.CloseUp += new System.EventHandler(this.AdjustedDatePicker_CloseUp);
-			// 
-			// adjustedTimePicker
-			// 
-			this.adjustedTimePicker.CalendarMonthBackground = System.Drawing.Color.Transparent;
-			resources.ApplyResources(this.adjustedTimePicker, "adjustedTimePicker");
-			this.adjustedTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-			this.adjustedTimePicker.Name = "adjustedTimePicker";
-			this.adjustedTimePicker.ShowUpDown = true;
-			this.adjustedTimePicker.ValueChanged += new System.EventHandler(this.adjustedTimePicker_ValueChanged);
 			// 
 			// Form1
 			// 
