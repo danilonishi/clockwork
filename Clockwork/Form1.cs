@@ -12,6 +12,7 @@ namespace Clockwork
 	{
 		AutoTimeUpdater updater;
 		CustomTime customTime;
+		bool warnNotSaved;
 
 		Stopwatch watch;
 		DateTime startupDateTime;
@@ -22,6 +23,18 @@ namespace Clockwork
 		bool IsRunAsAdministrator()
 		{
 			return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+		}
+
+		public void SetWindowTitle(string appendix)
+		{
+			if (appendix == null)
+			{
+				Text = "Clockwork 1.0";
+			}
+			else
+			{
+				Text = string.Format("Clockwork 1.0 | Profile:{0}", appendix);
+			}
 		}
 
 		public Form1()
@@ -53,31 +66,40 @@ namespace Clockwork
 #endif
 			InitializeComponent();
 
+			SetWindowTitle("Standard");
+
 			if (ApplicationDeployment.IsNetworkDeployed)
 			{
-				Text = string.Format("Clockwork - v{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
+				//SetWindowTitle("Standard");
+				//Text = string.Format("Clockwork - v{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
 			}
 			else
 			{
-				string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-				Text = string.Format("Clockwork - v{0}", version);
+				//string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+				//Text = string.Format("Clockwork - v{0}", version);
 			}
 
-			LoadProperties();
-			InitializeValues();
-		}
-
-		void LoadProperties()
-		{
+			defaulPersistanceData = new StandardApplicationPersistence();
 			if (Properties.Settings.Default.FirstRun)
 			{
-				if (ApplicationDataPersistence.HasAppDataConfig())
+				if (defaulPersistanceData.HasConfig())
 				{
-					ApplicationDataPersistence.ReadFromAppData();
+					defaulPersistanceData.Load();
 					Properties.Settings.Default.FirstRun = false;
 				}
 			}
 
+			ReadProperties();
+
+			toolStripStatusLabel1.Text = "Timer not running";
+			toolStripProgressBar1.Visible = false;
+		}
+
+		IPersistable defaulPersistanceData;
+		IPersistable customPersistanceData;
+
+		void ReadProperties()
+		{
 			manualHourIncrement.Value = Properties.Settings.Default.ManualHour;
 			manualMinuteIncrement.Value = Properties.Settings.Default.ManualMinute;
 			manualSecondIncrement.Value = Properties.Settings.Default.ManualSecond;
@@ -86,9 +108,10 @@ namespace Clockwork
 			automaticSecondIncrement.Value = Properties.Settings.Default.AutoSecond;
 			fetchDatetimeCheckbox.Checked = Properties.Settings.Default.RestoreOnClose;
 			// last date needs to be restored after web time refresh;
+			InitializeTimeValue();
 		}
 
-		private void InitializeValues()
+		private void InitializeTimeValue()
 		{
 			updater = new AutoTimeUpdater();
 			customTime = new CustomTime();
@@ -109,10 +132,14 @@ namespace Clockwork
 						adjustedDateTime = Properties.Settings.Default.LastDate;
 						customTime.SetSystemTime(adjustedDateTime);
 					}
-					*/
+					//*/
 					adjustedDateTime = Properties.Settings.Default.LastDate;
 					customTime.SetSystemTime(adjustedDateTime);
 				}
+			}
+			else
+			{
+				Console.WriteLine("First run");
 			}
 		}
 
@@ -132,7 +159,7 @@ namespace Clockwork
 		}
 
 		string dateString = "HH:mm:ss";
-		
+
 		DateTime localDisplayTime;
 
 		private void UpdateTimers()
@@ -163,21 +190,34 @@ namespace Clockwork
 				Properties.Settings.Default[key] = value;
 				Properties.Settings.Default.Save();
 
-				ApplicationDataPersistence.SaveToAppData();
+				defaulPersistanceData.Save();
+				if (customPersistanceData != null)
+				{
+					customPersistanceData.Save();
+				}
 			}
 		}
 
-		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		public void FullSave()
 		{
 			Properties.Settings.Default.LastDate = adjustedDateTime.ToLocalTime();
 			Properties.Settings.Default.FirstRun = false;
 			Properties.Settings.Default.Save();
-			ApplicationDataPersistence.SaveToAppData();
+			defaulPersistanceData.Save();
+			if (customPersistanceData != null)
+			{
+				customPersistanceData.Save();
+			}
 			if (Properties.Settings.Default.RestoreOnClose)
 			{
 				DisableAutomaticTimeChange();
 				customTime.SyncSystemTimeToWeb();
 			}
+		}
+
+		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			FullSave();
 		}
 
 		void PerformTimeChange(ushort hour, ushort minute, ushort second)
@@ -200,19 +240,7 @@ namespace Clockwork
 		private void ManualHourClick(object sender, EventArgs e)
 		{
 			DisableAutomaticTimeChange();
-			PerformTimeChange((ushort)manualHourIncrement.Value, 0, 0);
-		}
-
-		private void ManualMinuteClick(object sender, EventArgs e)
-		{
-			DisableAutomaticTimeChange();
-			PerformTimeChange(0, (ushort)manualMinuteIncrement.Value, 0);
-		}
-
-		private void ManualSecondClick(object sender, EventArgs e)
-		{
-			DisableAutomaticTimeChange();
-			PerformTimeChange(0, 0, (ushort)manualSecondIncrement.Value);
+			PerformTimeChange((ushort)manualHourIncrement.Value, (ushort)manualMinuteIncrement.Value, (ushort)manualSecondIncrement.Value);
 		}
 
 		private void ManualHourChanged(object sender, EventArgs e)
@@ -252,7 +280,7 @@ namespace Clockwork
 
 		void SetAutoProps(NumericUpDown sender, string method, decimal cap)
 		{
-			bool reenable = autoIncrementCheckbox.Checked;
+			bool reenable = EnableAutoUpdate;
 			DisableAutomaticTimeChange();
 			(sender as NumericUpDown).Value %= cap;
 			if ((ushort)(sender as NumericUpDown).Value != (ushort)Properties.Settings.Default[method])
@@ -271,31 +299,54 @@ namespace Clockwork
 			UpdateTimers();
 		}
 
-		private void CheckBox2_CheckedChanged(object sender, EventArgs e)
+		bool enableAutoUpdate;
+		public bool EnableAutoUpdate
 		{
-			if ((sender as CheckBox).Checked)
+			set
 			{
-				updater.EventMilliseconds =
-					Properties.Settings.Default.AutoSecond * 1000 +
-					Properties.Settings.Default.AutoMinute * 60000 +
-					Properties.Settings.Default.AutoHour * 3600000;
+				enableAutoUpdate = value;
+				SetAutoBehaviour();
+			}
+			get
+			{
+				return enableAutoUpdate;
+			}
+		}
 
-				updater.OnTimer += HandleUpdaterTimer;
-				updater.OnUpdate += HandleUpdaterUpdate;
-				updater.Restart();
-			}
-			else
+		void SetAutoBehaviour()
+		{
+			if (updater != null)
 			{
-				updater.OnTimer -= HandleUpdaterTimer;
-				updater.OnUpdate -= HandleUpdaterUpdate;
-				updater.Stop();
+				if (enableAutoUpdate)
+				{
+					updater.EventMilliseconds =
+						Properties.Settings.Default.AutoSecond * 1000 +
+						Properties.Settings.Default.AutoMinute * 60000 +
+						Properties.Settings.Default.AutoHour * 3600000;
+
+					updater.OnTimer += HandleUpdaterTimer;
+					updater.OnUpdate += HandleUpdaterUpdate;
+					toolStripProgressBar1.Visible = true;
+					updater.Restart();
+				}
+				else
+				{
+					updater.OnTimer -= HandleUpdaterTimer;
+					updater.OnUpdate -= HandleUpdaterUpdate;
+					updater.Stop();
+					toolStripStatusLabel1.Text = "Timer not running";
+					toolStripProgressBar1.Visible = false;
+				}
 			}
-			automaticProgressbar.Value = 0;
+			toolStripProgressBar1.Value = 0;
 		}
 
 		private void HandleUpdaterUpdate()
 		{
-			this.automaticProgressbar.Value = 100 - updater.Percent;
+			string manualTime = string.Format("{0}:{1}:{2}", manualHourIncrement.Value.ToString("00"), manualMinuteIncrement.Value.ToString("00"), manualSecondIncrement.Value.ToString("00"));
+			string automaticTime = string.Format("{0}:{1}:{2}", automaticHourIncrement.Value.ToString("00"), automaticMinuteIncrement.Value.ToString("00"), automaticSecondIncrement.Value.ToString("00"));
+			toolStripStatusLabel1.Text = string.Format("Incrementing {0} every {1}", manualTime, automaticTime);
+			toolStripProgressBar1.Value = 100 - updater.Percent;
 		}
 
 		private void HandleUpdaterTimer()
@@ -322,18 +373,19 @@ namespace Clockwork
 
 		private void AutoIncrementButtonClick(object sender, EventArgs e)
 		{
-			SetAutoIncrementState(!autoIncrementCheckbox.Checked);
+			SetAutoIncrementState(!EnableAutoUpdate);
 		}
 
 		void SetAutoIncrementState(bool enabled)
 		{
-			autoIncrementCheckbox.Checked = enabled;
+			EnableAutoUpdate = enabled;
+			//autoIncrementCheckbox.Checked = enabled;
 			UpdateIncrementButtonText();
 		}
 
 		void UpdateIncrementButtonText()
 		{
-			autoIncrementButton.Text = autoIncrementCheckbox.Checked ? "Desativar autoincrementação" : "Autoincrementar";
+			autoIncrementButton.Text = EnableAutoUpdate ? "Desativar autoincrementação" : "Autoincrementar";
 		}
 
 		private void AdjustedTimePicker_ValueChanged(object sender, EventArgs e)
@@ -368,9 +420,8 @@ namespace Clockwork
 			adjustedDatePicker.Enabled = adjustedTimePicker.Enabled = controlsEnabled;
 			manualHourIncrement.Enabled = manualMinuteIncrement.Enabled = manualSecondIncrement.Enabled = controlsEnabled;
 			automaticHourIncrement.Enabled = automaticMinuteIncrement.Enabled = automaticSecondIncrement.Enabled = controlsEnabled;
-			manualHourButton.Enabled = manualMinuteButton.Enabled = manualSecondButton.Enabled = controlsEnabled;
+			manualHourButton.Enabled = controlsEnabled;
 			autoIncrementButton.Enabled = controlsEnabled;
-			automaticProgressbar.Enabled = controlsEnabled;
 			fetchDatetimeButton.Enabled = controlsEnabled;
 
 			if (controlsEnabled)
@@ -382,5 +433,64 @@ namespace Clockwork
 				updater.Stop();
 			}
 		}
+
+		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			defaulPersistanceData.Save();
+			if (customPersistanceData != null)
+			{
+				customPersistanceData.Save();
+			}
+		}
+
+		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			openFileDialog1.ShowDialog();
+		}
+
+		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			saveFileDialog1.ShowDialog();
+		}
+
+		private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			var fullPath = (sender as OpenFileDialog).FileName;
+			SetupPersistanceForPath(fullPath);
+			customPersistanceData.Load();
+			ReadProperties();
+		}
+
+		private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			var fullPath = (sender as SaveFileDialog).FileName;
+			SetupPersistanceForPath(fullPath);
+			FullSave();
+		}
+
+		void SetupPersistanceForPath(string filepath)
+		{
+			var index = filepath.LastIndexOf('\\');
+			var filename = filepath.Substring(index + 1);
+			var folder = filepath.Substring(0, index);
+
+			var fileNoExt = filename.Substring(0, filename.IndexOf('.'));
+
+			SetWindowTitle(fileNoExt);
+
+			Console.WriteLine(filepath);
+			Console.WriteLine(filename);
+			Console.WriteLine(folder);
+
+			customPersistanceData = new AppDataPersistence(folder, filename);
+		}
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FullSave();
+			// Shut down the current process
+			Environment.Exit(0);
+		}
+		
 	}
 }

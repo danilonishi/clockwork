@@ -4,42 +4,59 @@ using System.Xml.Serialization;
 
 namespace Clockwork
 {
-	public static class ApplicationDataPersistence
+	[Serializable]
+	public struct AppData
 	{
-		[Serializable]
-		public struct AppData
+		public int mhour, mmin, msec, ahour, amin, asec;
+		public bool restore;
+		public DateTime lastDate;
+	}
+
+	public interface IPersistable
+	{
+		void Save();
+		bool HasConfig();
+		bool Load();
+	}
+
+	public class DataPersistancePath
+	{
+		public readonly string rootFolder;
+		public readonly string filename;
+
+		public string FilePath
 		{
-			public int mhour, mmin, msec, ahour, amin, asec;
-			public bool restore;
-			public DateTime lastDate;
+			get
+			{
+				return Path.Combine(rootFolder, filename);
+			}
 		}
 
-		const string companyName = "DaniloNishimura";
-		const string configFileName = "clockwork_config";
-		static readonly string localAppDataPath;
-		static readonly string companyFolderPath;
-		static readonly string configFilePath;
-		static readonly string oldConfigFilePath;
-
-		static ApplicationDataPersistence()
+		public DataPersistancePath(string rootFolder, string filename)
 		{
-			localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			companyFolderPath = Path.Combine(localAppDataPath, companyName);
-			configFilePath = Path.Combine(companyFolderPath, string.Concat(configFileName, ".xml"));
-			oldConfigFilePath = Path.Combine(companyFolderPath, string.Concat(configFileName, ".old"));
+			this.rootFolder = rootFolder;
+			this.filename = filename;
+		}
+	}
+
+	public class AppDataPersistence : IPersistable
+	{
+		protected readonly DataPersistancePath currentPersistancePath;
+
+		public AppDataPersistence(string folderPath, string filename)
+		{
+			Console.WriteLine("Creating Persistance object: " + Path.Combine(folderPath, filename));
+			currentPersistancePath = new DataPersistancePath(folderPath, filename);
 		}
 
-		static public void SaveToAppData()
+		public virtual void Save()
 		{
-			if (!Directory.Exists(companyFolderPath))
-				Directory.CreateDirectory(companyFolderPath);
+			if (!Directory.Exists(currentPersistancePath.rootFolder))
+				Directory.CreateDirectory(currentPersistancePath.rootFolder);
 
-			if (File.Exists(oldConfigFilePath))
-				File.Delete(oldConfigFilePath);
-
-			if (File.Exists(configFilePath))
-				File.Move(configFilePath, oldConfigFilePath);
-
+			if (File.Exists(currentPersistancePath.FilePath))
+				File.Delete(currentPersistancePath.FilePath);
+			
 			AppData data = new AppData()
 			{
 				mhour = Properties.Settings.Default.ManualHour,
@@ -52,38 +69,48 @@ namespace Clockwork
 				lastDate = Properties.Settings.Default.LastDate
 			};
 
-			using (StreamWriter file = new StreamWriter(configFilePath))
+			Console.WriteLine("Writing contents to " + currentPersistancePath.FilePath);
+
+			using (StreamWriter file = new StreamWriter(currentPersistancePath.FilePath))
 			{
 				XmlSerializer writer = new XmlSerializer(typeof(AppData));
 				writer.Serialize(file, data);
 			}
 		}
 
-		static public bool HasAppDataConfig()
+		public virtual bool HasConfig()
 		{
-			return File.Exists(configFilePath);
+			return File.Exists(currentPersistancePath.FilePath);
 		}
 
-		static public bool ReadFromAppData()
+		public virtual bool Load()
 		{
-			Console.WriteLine("ReadFromAppData...");
-			if (HasAppDataConfig())
+			Console.WriteLine("Loading config...");
+			if (HasConfig())
 			{
 				Console.WriteLine("... config file found");
-				using (StreamReader file = new StreamReader(configFilePath))
+				using (StreamReader file = new StreamReader(currentPersistancePath.FilePath))
 				{
 					Console.WriteLine("... reading file...");
 					AppData data;
-					XmlSerializer reader = new XmlSerializer(typeof(AppData));
-					data = (AppData)reader.Deserialize(file);
-					Properties.Settings.Default.ManualHour = (ushort)data.mhour;
-					Properties.Settings.Default.ManualMinute = (ushort)data.mmin;
-					Properties.Settings.Default.ManualSecond = (ushort)data.msec;
-					Properties.Settings.Default.AutoHour = (ushort)data.ahour;
-					Properties.Settings.Default.AutoMinute = (ushort)data.amin;
-					Properties.Settings.Default.AutoSecond = (ushort)data.asec;
-					Properties.Settings.Default.RestoreOnClose = data.restore;
-					Properties.Settings.Default.LastDate = data.lastDate;
+					try // XML File may be corrupt or badly formatted.
+					{
+						XmlSerializer reader = new XmlSerializer(typeof(AppData));
+						data = (AppData)reader.Deserialize(file);
+
+						Properties.Settings.Default.ManualHour = (ushort)data.mhour;
+						Properties.Settings.Default.ManualMinute = (ushort)data.mmin;
+						Properties.Settings.Default.ManualSecond = (ushort)data.msec;
+						Properties.Settings.Default.AutoHour = (ushort)data.ahour;
+						Properties.Settings.Default.AutoMinute = (ushort)data.amin;
+						Properties.Settings.Default.AutoSecond = (ushort)data.asec;
+						Properties.Settings.Default.RestoreOnClose = data.restore;
+						Properties.Settings.Default.LastDate = data.lastDate;
+					}
+					catch {
+						Console.WriteLine("File corrupt or badly formatted.");
+					};
+
 				}
 				Console.WriteLine("... done");
 				return true;
@@ -92,4 +119,36 @@ namespace Clockwork
 			return false;
 		}
 	}
+
+	public class StandardApplicationPersistence : IPersistable
+	{
+		const string companyName = "DaniloNishimura";
+		const string configFileName = "clockwork_config";
+		readonly string localAppDataPath;
+		readonly string companyFolderPath;
+		AppDataPersistence persistance;
+
+		public StandardApplicationPersistence()
+		{
+			Console.WriteLine("Creating Standard Application Persistance object");
+			localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			companyFolderPath = Path.Combine(localAppDataPath, companyName);
+
+			persistance = new AppDataPersistence(companyFolderPath, string.Concat(configFileName, ".xml"));
+		}
+
+		public void Save()
+		{
+			persistance.Save();
+		}
+
+		public bool HasConfig()
+		{ return persistance.HasConfig(); }
+
+		public bool Load()
+		{
+			return persistance.Load();
+		}
+	}
+
 }
