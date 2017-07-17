@@ -12,7 +12,7 @@ namespace Clockwork
 	{
 		AutoTimeUpdater updater;
 		CustomTime customTime;
-		bool warnNotSaved;
+
 
 		Stopwatch watch;
 		DateTime startupDateTime;
@@ -25,16 +25,38 @@ namespace Clockwork
 			return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 		}
 
-		public void SetWindowTitle(string appendix)
+		bool containsUnsavedChanges;
+		bool ContainsUnsavedChanges
 		{
-			if (appendix == null)
+			get
 			{
-				Text = "Clockwork 1.0";
+				return containsUnsavedChanges;
+			}
+			set
+			{
+				containsUnsavedChanges = value;
+				UpdateWindowTitle();
+			}
+		}
+
+		string profileName = string.Empty;
+
+		public void UpdateWindowTitle()
+		{
+			if (!string.IsNullOrWhiteSpace(profileName))
+			{
+				Text = string.Format("Clockwork 1.0 | Profile:{0}{1}", profileName, ContainsUnsavedChanges ? " (Not Saved)" : "");
 			}
 			else
 			{
-				Text = string.Format("Clockwork 1.0 | Profile:{0}", appendix);
+				Text = "Clockwork 1.0";
 			}
+		}
+
+		public void SetProfileTitleText(string profileName)
+		{
+			this.profileName = profileName;
+			UpdateWindowTitle();
 		}
 
 		public Form1()
@@ -66,25 +88,14 @@ namespace Clockwork
 #endif
 			InitializeComponent();
 
-			SetWindowTitle("Standard");
+			SetProfileTitleText("Standard");
 
-			if (ApplicationDeployment.IsNetworkDeployed)
-			{
-				//SetWindowTitle("Standard");
-				//Text = string.Format("Clockwork - v{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
-			}
-			else
-			{
-				//string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-				//Text = string.Format("Clockwork - v{0}", version);
-			}
-
-			defaulPersistanceData = new StandardApplicationPersistence();
+			defaultPersistanceData = new StandardApplicationPersistence();
 			if (Properties.Settings.Default.FirstRun)
 			{
-				if (defaulPersistanceData.HasConfig())
+				if (defaultPersistanceData.HasConfig())
 				{
-					defaulPersistanceData.Load();
+					defaultPersistanceData.Load();
 					Properties.Settings.Default.FirstRun = false;
 				}
 			}
@@ -95,7 +106,7 @@ namespace Clockwork
 			toolStripProgressBar1.Visible = false;
 		}
 
-		IPersistable defaulPersistanceData;
+		IPersistable defaultPersistanceData;
 		IPersistable customPersistanceData;
 
 		void ReadProperties()
@@ -190,11 +201,7 @@ namespace Clockwork
 				Properties.Settings.Default[key] = value;
 				Properties.Settings.Default.Save();
 
-				defaulPersistanceData.Save();
-				if (customPersistanceData != null)
-				{
-					customPersistanceData.Save();
-				}
+				ContainsUnsavedChanges = true;
 			}
 		}
 
@@ -203,21 +210,25 @@ namespace Clockwork
 			Properties.Settings.Default.LastDate = adjustedDateTime.ToLocalTime();
 			Properties.Settings.Default.FirstRun = false;
 			Properties.Settings.Default.Save();
-			defaulPersistanceData.Save();
+
+			defaultPersistanceData.Save();
+
 			if (customPersistanceData != null)
 			{
 				customPersistanceData.Save();
 			}
-			if (Properties.Settings.Default.RestoreOnClose)
-			{
-				DisableAutomaticTimeChange();
-				customTime.SyncSystemTimeToWeb();
-			}
+			
+			ContainsUnsavedChanges = false;
 		}
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			FullSave();
+			if (Properties.Settings.Default.RestoreOnClose)
+			{
+				DisableAutomaticTimeChange();
+				customTime.SyncSystemTimeToWeb();
+			}
 		}
 
 		void PerformTimeChange(ushort hour, ushort minute, ushort second)
@@ -394,6 +405,7 @@ namespace Clockwork
 			{
 				adjustedDateTime = (sender as DateTimePicker).Value;
 				customTime.SetSystemTime(adjustedDateTime);
+				ContainsUnsavedChanges = true;
 			}
 		}
 
@@ -403,6 +415,7 @@ namespace Clockwork
 			{
 				adjustedDateTime = (sender as DateTimePicker).Value;
 				customTime.SetSystemTime(adjustedDateTime);
+				ContainsUnsavedChanges = true;
 			}
 		}
 
@@ -436,11 +449,8 @@ namespace Clockwork
 
 		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			defaulPersistanceData.Save();
-			if (customPersistanceData != null)
-			{
-				customPersistanceData.Save();
-			}
+			FullSave();
+			ContainsUnsavedChanges = false;
 		}
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -459,6 +469,7 @@ namespace Clockwork
 			SetupPersistanceForPath(fullPath);
 			customPersistanceData.Load();
 			ReadProperties();
+			ContainsUnsavedChanges = false;
 		}
 
 		private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
@@ -476,7 +487,7 @@ namespace Clockwork
 
 			var fileNoExt = filename.Substring(0, filename.IndexOf('.'));
 
-			SetWindowTitle(fileNoExt);
+			SetProfileTitleText(fileNoExt);
 
 			Console.WriteLine(filepath);
 			Console.WriteLine(filename);
@@ -488,9 +499,16 @@ namespace Clockwork
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			FullSave();
+
+			if (Properties.Settings.Default.RestoreOnClose)
+			{
+				DisableAutomaticTimeChange();
+				customTime.SyncSystemTimeToWeb();
+			}
+
 			// Shut down the current process
 			Environment.Exit(0);
 		}
-		
+
 	}
 }
