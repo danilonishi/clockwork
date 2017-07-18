@@ -100,6 +100,32 @@ namespace Clockwork
 			}
 		}
 
+		void ReadCWCFile()
+		{
+			//Check if a CWC file is provided by the environment
+			string profilePath = string.Empty;
+			var args = Environment.GetCommandLineArgs();
+			foreach (var arg in args)
+			{
+				var filepath = arg;
+				if (System.IO.File.Exists(filepath))
+				{
+					if (filepath.EndsWith(".cwc"))
+					{
+						Console.WriteLine(">>>" + arg);
+						profilePath = filepath;
+					}
+				}
+			}
+
+			// If found, load its data
+			if (!string.IsNullOrWhiteSpace(profilePath))
+			{
+				LoadDataFromPath(profilePath);
+			}
+
+		}
+
 		public Form1()
 		{
 #if !DEBUG
@@ -113,8 +139,7 @@ namespace Clockwork
 
 			InitializeComponent();
 
-			SetProfileTitleText("Default");
-
+			//Default (safe) Persistence Data
 			defaultPersistanceData = new StandardApplicationPersistence();
 			if (Properties.Settings.Default.FirstRun)
 			{
@@ -123,7 +148,14 @@ namespace Clockwork
 					defaultPersistanceData.Load();
 					Properties.Settings.Default.FirstRun = false;
 				}
+				else
+				{
+					defaultPersistanceData.Save();
+				}
 			}
+			SetProfileTitleText("Default");
+			
+			ReadCWCFile();
 
 			ReadProperties();
 
@@ -492,7 +524,12 @@ namespace Clockwork
 		private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			var fullPath = (sender as OpenFileDialog).FileName;
-			SetupPersistanceForPath(fullPath);
+			LoadDataFromPath(fullPath);
+		}
+
+		void LoadDataFromPath(string path)
+		{
+			SetupPersistanceForPath(path);
 			customPersistanceData.Load();
 			ReadProperties();
 			ContainsUnsavedChanges = false;
