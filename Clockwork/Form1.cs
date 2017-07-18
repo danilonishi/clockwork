@@ -76,11 +76,22 @@ namespace Clockwork
 				Verb = "runas"
 			};
 			var args = Environment.GetCommandLineArgs();
-			if (args != null && args.Length > 0)
+			if (args != null)
 			{
-				var _arg = string.Join("\n", args);
-				Logger.Append("Starting new process with arguments:" + _arg);
-				processInfo.Arguments = _arg;
+				int idx = 0;
+				string fullarg = string.Empty;
+				foreach (var __arg in args)
+				{
+					Logger.Append(string.Format("Argument {0}: {1}", idx, __arg));
+					if (idx > 0)
+					{
+						fullarg += string.Format("\"{0}\"", __arg);
+					}
+					idx++;
+				}
+				
+				Logger.Append("Starting new process with arguments:" + fullarg);
+				processInfo.Arguments = fullarg;
 			}
 
 			// Start the new process
@@ -117,16 +128,20 @@ namespace Clockwork
 
 		void ReadCWCFile()
 		{
+			Logger.Append("Checking CWC file...");
 			//Check if a CWC file is provided by the environment
 			string profilePath = string.Empty;
 			var args = Environment.GetCommandLineArgs();
+			int idx = 0;
 			foreach (var arg in args)
 			{
+				Logger.Append(string.Format("Argument {0}: {1}", idx++, arg));
 				var filepath = arg;
 				if (System.IO.File.Exists(filepath))
 				{
 					if (filepath.EndsWith(".cwc"))
 					{
+						Logger.Append("CWC File found in environment arguments.");
 						profilePath = filepath;
 					}
 				}
