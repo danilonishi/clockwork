@@ -60,18 +60,17 @@
 			this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.manualHourIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualMinuteIncrement)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.manualSecondIncrement)).BeginInit();
@@ -81,10 +80,9 @@
 			this.realtimeBox.SuspendLayout();
 			this.adjustedTimeBox.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
-			this.tabControl1.SuspendLayout();
-			this.tabPage1.SuspendLayout();
-			this.tabPage2.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// manualHourButton
@@ -285,6 +283,12 @@
 			resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
+			// saveAsToolStripMenuItem
+			// 
+			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+			resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
+			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -302,40 +306,7 @@
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
-			// 
-			// tabControl1
-			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			resources.ApplyResources(this.tabControl1, "tabControl1");
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.manualHourLabel);
-			this.tabPage1.Controls.Add(this.manualHourButton);
-			this.tabPage1.Controls.Add(this.manualSecondIncrement);
-			this.tabPage1.Controls.Add(this.manualMinuteLabel);
-			this.tabPage1.Controls.Add(this.manualMinuteIncrement);
-			this.tabPage1.Controls.Add(this.manualHourIncrement);
-			this.tabPage1.Controls.Add(this.manualSecondLabel);
-			resources.ApplyResources(this.tabPage1, "tabPage1");
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Controls.Add(this.autoHourLabel);
-			this.tabPage2.Controls.Add(this.autoIncrementButton);
-			this.tabPage2.Controls.Add(this.automaticHourIncrement);
-			this.tabPage2.Controls.Add(this.automaticMinuteIncrement);
-			this.tabPage2.Controls.Add(this.autoMinuteLabel);
-			this.tabPage2.Controls.Add(this.autoSecondLabel);
-			this.tabPage2.Controls.Add(this.automaticSecondIncrement);
-			resources.ApplyResources(this.tabPage2, "tabPage2");
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -364,12 +335,6 @@
 			resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
 			this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
 			// 
-			// saveAsToolStripMenuItem
-			// 
-			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
-			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-			// 
 			// saveFileDialog1
 			// 
 			this.saveFileDialog1.CreatePrompt = true;
@@ -378,14 +343,41 @@
 			resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
 			this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.manualHourButton);
+			this.groupBox1.Controls.Add(this.manualHourLabel);
+			this.groupBox1.Controls.Add(this.manualSecondLabel);
+			this.groupBox1.Controls.Add(this.manualSecondIncrement);
+			this.groupBox1.Controls.Add(this.manualHourIncrement);
+			this.groupBox1.Controls.Add(this.manualMinuteLabel);
+			this.groupBox1.Controls.Add(this.manualMinuteIncrement);
+			resources.ApplyResources(this.groupBox1, "groupBox1");
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.TabStop = false;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.autoIncrementButton);
+			this.groupBox2.Controls.Add(this.autoHourLabel);
+			this.groupBox2.Controls.Add(this.automaticSecondIncrement);
+			this.groupBox2.Controls.Add(this.automaticHourIncrement);
+			this.groupBox2.Controls.Add(this.autoSecondLabel);
+			this.groupBox2.Controls.Add(this.automaticMinuteIncrement);
+			this.groupBox2.Controls.Add(this.autoMinuteLabel);
+			resources.ApplyResources(this.groupBox2, "groupBox2");
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.TabStop = false;
+			// 
 			// Form1
 			// 
 			this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			resources.ApplyResources(this, "$this");
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.freezeClockButton);
-			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.adjustedTimeBox);
 			this.Controls.Add(this.realtimeBox);
 			this.Controls.Add(this.fetchDatetimeButton);
@@ -408,13 +400,12 @@
 			this.adjustedTimeBox.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			this.tabPage2.PerformLayout();
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -454,15 +445,14 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox groupBox2;
 	}
 }
 

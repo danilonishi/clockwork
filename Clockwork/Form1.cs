@@ -59,36 +59,61 @@ namespace Clockwork
 			UpdateWindowTitle();
 		}
 
-		public Form1()
+		void StartNewProcess()
 		{
-#if !DEBUG
-			if (!IsRunAsAdministrator())
+			var processInfo = new ProcessStartInfo(Assembly.GetExecutingAssembly().CodeBase)
 			{
-				var processInfo = new ProcessStartInfo(Assembly.GetExecutingAssembly().CodeBase)
-				{
-					// The following properties run the new process as administrator
-					UseShellExecute = true,
-					Verb = "runas"
-				};
+				// The following properties run the new process as administrator
+				UseShellExecute = true,
+				Verb = "runas"
+			};
 
-				// Start the new process
-				try
+			// Start the new process
+			try
+			{
+				Process.Start(processInfo);
+			}
+			catch (Exception)
+			{
+				// The user did not allow the application to run as administrator
+				string windowMessage = "This application works by modifying your system time.\nUnfortunately, Windows *requires* administrator previlegies to modify system clock. The app can not work without it.";
+				string windowTitle = "Administrator previlegies required";
+				DialogResult result = MessageBox.Show(windowMessage, windowTitle, MessageBoxButtons.RetryCancel);
+				switch (result)
 				{
-					Process.Start(processInfo);
-				}
-				catch (Exception)
-				{
-					// The user did not allow the application to run as administrator
-					MessageBox.Show("Sorry, this application must be run as Administrator.");
+					case DialogResult.None:
+					case DialogResult.OK:
+					case DialogResult.Retry:
+					case DialogResult.Yes:
+						StartNewProcess();
+						break;
+					case DialogResult.Abort:
+					case DialogResult.Cancel:
+					case DialogResult.Ignore:
+					case DialogResult.No:
+					default:
+						break;
 				}
 
 				// Shut down the current process
 				Environment.Exit(0);
 			}
+		}
+
+		public Form1()
+		{
+#if !DEBUG
+			if (!IsRunAsAdministrator())
+			{
+				StartNewProcess();
+				// Shut down the current process
+				Environment.Exit(0);
+			}
 #endif
+
 			InitializeComponent();
 
-			SetProfileTitleText("Standard");
+			SetProfileTitleText("Default");
 
 			defaultPersistanceData = new StandardApplicationPersistence();
 			if (Properties.Settings.Default.FirstRun)
@@ -217,7 +242,7 @@ namespace Clockwork
 			{
 				customPersistanceData.Save();
 			}
-			
+
 			ContainsUnsavedChanges = false;
 		}
 
@@ -396,7 +421,7 @@ namespace Clockwork
 
 		void UpdateIncrementButtonText()
 		{
-			autoIncrementButton.Text = EnableAutoUpdate ? "Desativar autoincrementação" : "Autoincrementar";
+			autoIncrementButton.Text = EnableAutoUpdate ? "Disable autoincrementation" : "Enable autoincrementation";
 		}
 
 		private void AdjustedTimePicker_ValueChanged(object sender, EventArgs e)
@@ -422,7 +447,7 @@ namespace Clockwork
 		private void FreezeClockButton_Click(object sender, EventArgs e)
 		{
 			isTimeFrozen = !isTimeFrozen;
-			(sender as Button).Text = isTimeFrozen ? "Descongelar relógio" : "Congelar relógio";
+			(sender as Button).Text = isTimeFrozen ? "Unfreeze system clock" : "Freeze system clock";
 			if (isTimeFrozen)
 			{
 				freezeTime = adjustedDateTime;
@@ -511,5 +536,10 @@ namespace Clockwork
 			Environment.Exit(0);
 		}
 
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AboutBox1 box = new AboutBox1();
+			box.Show();
+		}
 	}
 }

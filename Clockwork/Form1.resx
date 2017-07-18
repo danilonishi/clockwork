@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="manualHourButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 45</value>
+    <value>9, 58</value>
   </data>
   <data name="manualHourButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 51</value>
+    <value>193, 51</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="manualHourButton.TabIndex" type="System.Int32, mscorlib">
@@ -138,16 +138,16 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualHourButton.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualHourButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="manualHourIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 19</value>
+    <value>9, 32</value>
   </data>
   <data name="manualHourIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="manualHourIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -159,10 +159,10 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualHourIncrement.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualHourIncrement.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="fetchDatetimeCheckbox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -172,7 +172,7 @@
     <value>True</value>
   </data>
   <data name="fetchDatetimeCheckbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 278</value>
+    <value>12, 265</value>
   </data>
   <data name="fetchDatetimeCheckbox.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 17</value>
@@ -193,13 +193,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;fetchDatetimeCheckbox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="manualHourLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="manualHourLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 3</value>
+    <value>6, 16</value>
   </data>
   <data name="manualHourLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 13</value>
@@ -217,19 +217,19 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualHourLabel.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualHourLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="manualMinuteIncrement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="manualMinuteIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 19</value>
+    <value>75, 32</value>
   </data>
   <data name="manualMinuteIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="manualMinuteIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -241,19 +241,19 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualMinuteIncrement.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualMinuteIncrement.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="manualSecondIncrement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="manualSecondIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 19</value>
+    <value>142, 32</value>
   </data>
   <data name="manualSecondIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="manualSecondIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -265,10 +265,10 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualSecondIncrement.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualSecondIncrement.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="manualMinuteLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -277,7 +277,7 @@
     <value>True</value>
   </data>
   <data name="manualMinuteLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 3</value>
+    <value>72, 16</value>
   </data>
   <data name="manualMinuteLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 13</value>
@@ -295,10 +295,10 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualMinuteLabel.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualMinuteLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="manualSecondLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -307,7 +307,7 @@
     <value>True</value>
   </data>
   <data name="manualSecondLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 3</value>
+    <value>139, 16</value>
   </data>
   <data name="manualSecondLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 13</value>
@@ -325,19 +325,19 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;manualSecondLabel.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;manualSecondLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="freezeClockButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="freezeClockButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 272</value>
+    <value>178, 259</value>
   </data>
   <data name="freezeClockButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 23</value>
+    <value>125, 23</value>
   </data>
   <data name="freezeClockButton.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -355,13 +355,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;freezeClockButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="autoIncrementButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 45</value>
+    <value>6, 58</value>
   </data>
   <data name="autoIncrementButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 51</value>
+    <value>194, 51</value>
   </data>
   <data name="autoIncrementButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -376,10 +376,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;autoIncrementButton.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;autoIncrementButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="autoHourLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -388,7 +388,7 @@
     <value>NoControl</value>
   </data>
   <data name="autoHourLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 3</value>
+    <value>6, 16</value>
   </data>
   <data name="autoHourLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 13</value>
@@ -406,10 +406,10 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;autoHourLabel.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;autoHourLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="autoSecondLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -418,7 +418,7 @@
     <value>NoControl</value>
   </data>
   <data name="autoSecondLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 3</value>
+    <value>138, 16</value>
   </data>
   <data name="autoSecondLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 13</value>
@@ -436,16 +436,16 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;autoSecondLabel.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;autoSecondLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="automaticSecondIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 19</value>
+    <value>141, 32</value>
   </data>
   <data name="automaticSecondIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="automaticSecondIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -457,10 +457,10 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;automaticSecondIncrement.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;automaticSecondIncrement.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="autoMinuteLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -469,7 +469,7 @@
     <value>NoControl</value>
   </data>
   <data name="autoMinuteLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 3</value>
+    <value>70, 16</value>
   </data>
   <data name="autoMinuteLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 13</value>
@@ -487,16 +487,16 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;autoMinuteLabel.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;autoMinuteLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="automaticMinuteIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 19</value>
+    <value>73, 32</value>
   </data>
   <data name="automaticMinuteIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>58, 20</value>
   </data>
   <data name="automaticMinuteIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -508,16 +508,16 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;automaticMinuteIncrement.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;automaticMinuteIncrement.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="automaticHourIncrement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 19</value>
+    <value>9, 32</value>
   </data>
   <data name="automaticHourIncrement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="automaticHourIncrement.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -529,10 +529,10 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;automaticHourIncrement.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;automaticHourIncrement.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -541,16 +541,16 @@
     <value>Bottom, Right</value>
   </data>
   <data name="fetchDatetimeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 272</value>
+    <value>309, 259</value>
   </data>
   <data name="fetchDatetimeButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 23</value>
+    <value>125, 23</value>
   </data>
   <data name="fetchDatetimeButton.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
   <data name="fetchDatetimeButton.Text" xml:space="preserve">
-    <value>Restaurar horário</value>
+    <value>Restore time</value>
   </data>
   <data name="&gt;&gt;fetchDatetimeButton.Name" xml:space="preserve">
     <value>fetchDatetimeButton</value>
@@ -562,7 +562,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;fetchDatetimeButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;realTimePicker.Name" xml:space="preserve">
     <value>realTimePicker</value>
@@ -598,7 +598,7 @@
     <value>20</value>
   </data>
   <data name="realtimeBox.Text" xml:space="preserve">
-    <value>Real Time</value>
+    <value>Real Clock</value>
   </data>
   <data name="&gt;&gt;realtimeBox.Name" xml:space="preserve">
     <value>realtimeBox</value>
@@ -610,7 +610,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;realtimeBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="realTimePicker.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -709,7 +709,7 @@
     <value>21</value>
   </data>
   <data name="adjustedTimeBox.Text" xml:space="preserve">
-    <value>Modified Time</value>
+    <value>Modified Clock</value>
   </data>
   <data name="&gt;&gt;adjustedTimeBox.Name" xml:space="preserve">
     <value>adjustedTimeBox</value>
@@ -721,7 +721,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;adjustedTimeBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="adjustedTimePicker.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 32pt</value>
@@ -829,7 +829,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 20</value>
@@ -838,25 +838,40 @@
     <value>File</value>
   </data>
   <data name="profileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>108, 22</value>
   </data>
   <data name="profileToolStripMenuItem.Text" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="loadToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+O</value>
+  </data>
   <data name="loadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
+    <value>195, 22</value>
   </data>
   <data name="loadToolStripMenuItem.Text" xml:space="preserve">
     <value>Load</value>
   </data>
+  <data name="saveToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
+  </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
+    <value>195, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="saveAsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+S</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
   <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>108, 22</value>
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
@@ -867,116 +882,20 @@
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="aboutToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F1</value>
+  </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 22</value>
+    <value>126, 22</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 141</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 128</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 102</value>
-  </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>Manual</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 102</value>
-  </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Automatic</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>219, 17</value>
   </metadata>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 298</value>
+    <value>0, 285</value>
   </data>
   <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>446, 22</value>
@@ -997,7 +916,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>199, 17</value>
@@ -1012,25 +931,67 @@
     <value>335, 17</value>
   </metadata>
   <data name="openFileDialog1.Filter" xml:space="preserve">
-    <value>Json Files|*.json|AllFiles|*.*</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As...</value>
+    <value>Clockwork Config|*.cwc|AllFiles|*.*</value>
   </data>
   <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>475, 17</value>
   </metadata>
   <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value>Json Files|*.json|AllFiles|*.*</value>
+    <value>Clockwork Config|*.cwc|AllFiles|*.*</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 139</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 116</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Incremental Values</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 139</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 116</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Automation (interval)</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>446, 320</value>
+    <value>446, 307</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2840,6 +2801,12 @@
   <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveAsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;exitToolStripMenuItem.Name" xml:space="preserve">
     <value>exitToolStripMenuItem</value>
   </data>
@@ -2875,12 +2842,6 @@
   </data>
   <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAsToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveAsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
     <value>saveFileDialog1</value>
