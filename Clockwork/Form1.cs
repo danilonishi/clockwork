@@ -13,7 +13,6 @@ namespace Clockwork
 		AutoTimeUpdater updater;
 		CustomTime customTime;
 
-
 		Stopwatch watch;
 		DateTime startupDateTime;
 		DateTime adjustedDateTime;
@@ -45,11 +44,20 @@ namespace Clockwork
 		{
 			if (!string.IsNullOrWhiteSpace(profileName))
 			{
-				Text = string.Format("Clockwork 1.0 | Profile:{0}{1}", profileName, ContainsUnsavedChanges ? " (Not Saved)" : "");
+				var text = string.Format("Clockwork 1.0 | Profile:{0}{1}", profileName, ContainsUnsavedChanges ? " (Not Saved)" : "");
+				if (Text != text)
+				{
+					Text = text;
+					Logger.Append("Title updated to " + Text);
+				}
 			}
 			else
 			{
-				Text = "Clockwork 1.0";
+				if (Text != "Clockwork 1.0")
+				{
+					Text = "Clockwork 1.0";
+					Logger.Append("Title updated to " + Text);
+				}
 			}
 		}
 
@@ -67,6 +75,13 @@ namespace Clockwork
 				UseShellExecute = true,
 				Verb = "runas"
 			};
+			var args = Environment.GetCommandLineArgs();
+			if (args != null && args.Length > 0)
+			{
+				var _arg = string.Join("\n", args);
+				Logger.Append("Starting new process with arguments:" + _arg);
+				processInfo.Arguments = _arg;
+			}
 
 			// Start the new process
 			try
@@ -112,7 +127,6 @@ namespace Clockwork
 				{
 					if (filepath.EndsWith(".cwc"))
 					{
-						Console.WriteLine(">>>" + arg);
 						profilePath = filepath;
 					}
 				}
@@ -128,16 +142,21 @@ namespace Clockwork
 
 		public Form1()
 		{
+			Logger.Append("Application Startup");
+
 #if !DEBUG
 			if (!IsRunAsAdministrator())
 			{
+				Logger.Append("Not running as administrator");
 				StartNewProcess();
 				// Shut down the current process
 				Environment.Exit(0);
 			}
 #endif
-
+			Logger.Append("Initializing component..");
 			InitializeComponent();
+
+
 
 			//Default (safe) Persistence Data
 			defaultPersistanceData = new StandardApplicationPersistence();
@@ -154,7 +173,7 @@ namespace Clockwork
 				}
 			}
 			SetProfileTitleText("Default");
-			
+
 			ReadCWCFile();
 
 			ReadProperties();
@@ -207,7 +226,7 @@ namespace Clockwork
 			}
 			else
 			{
-				Console.WriteLine("First run");
+				Logger.Append("First run");
 			}
 		}
 
@@ -551,10 +570,6 @@ namespace Clockwork
 			var fileNoExt = filename.Substring(0, filename.IndexOf('.'));
 
 			SetProfileTitleText(fileNoExt);
-
-			Console.WriteLine(filepath);
-			Console.WriteLine(filename);
-			Console.WriteLine(folder);
 
 			customPersistanceData = new AppDataPersistence(folder, filename);
 		}

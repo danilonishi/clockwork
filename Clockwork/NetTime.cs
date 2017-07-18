@@ -27,7 +27,7 @@ namespace Clockwork
 			catch (Exception exp)
 			{
 				dt = DateTime.UtcNow;
-				Console.WriteLine(exp);
+				Logger.Append(exp.ToString());
 			}
 			finally
 			{

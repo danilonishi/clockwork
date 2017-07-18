@@ -45,7 +45,7 @@ namespace Clockwork
 
 		public AppDataPersistence(string folderPath, string filename)
 		{
-			Console.WriteLine("Creating Persistance object: " + Path.Combine(folderPath, filename));
+			Logger.Append("Creating Persistance object: " + Path.Combine(folderPath, filename));
 			currentPersistancePath = new DataPersistancePath(folderPath, filename);
 		}
 
@@ -69,7 +69,7 @@ namespace Clockwork
 				lastDate = Properties.Settings.Default.LastDate
 			};
 
-			Console.WriteLine("Writing contents to " + currentPersistancePath.FilePath);
+			Logger.Append("Writing contents to " + currentPersistancePath.FilePath);
 
 			using (StreamWriter file = new StreamWriter(currentPersistancePath.FilePath))
 			{
@@ -85,13 +85,13 @@ namespace Clockwork
 
 		public virtual bool Load()
 		{
-			Console.WriteLine("Loading config...");
+			Logger.Append("Loading config...");
 			if (HasConfig())
 			{
-				Console.WriteLine("... config file found");
+				Logger.Append("... config file found");
 				using (StreamReader file = new StreamReader(currentPersistancePath.FilePath))
 				{
-					Console.WriteLine("... reading file...");
+					Logger.Append("... reading file...");
 					AppData data;
 					try // XML File may be corrupt or badly formatted.
 					{
@@ -108,14 +108,14 @@ namespace Clockwork
 						Properties.Settings.Default.LastDate = data.lastDate;
 					}
 					catch {
-						Console.WriteLine("File corrupt or badly formatted.");
+						Logger.Append("File corrupt or badly formatted.");
 					};
 
 				}
-				Console.WriteLine("... done");
+				Logger.Append("... done");
 				return true;
 			}
-			Console.WriteLine("... config file not found");
+			Logger.Append("... config file not found");
 			return false;
 		}
 	}
@@ -130,7 +130,7 @@ namespace Clockwork
 
 		public StandardApplicationPersistence()
 		{
-			Console.WriteLine("Creating Standard Application Persistance object");
+			Logger.Append("Creating Standard Application Persistance object");
 			localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 			companyFolderPath = Path.Combine(localAppDataPath, companyName);
 

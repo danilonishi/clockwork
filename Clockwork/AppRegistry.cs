@@ -14,7 +14,7 @@ namespace Clockwork
 
 		public AppRegistry()
 		{
-			Console.WriteLine("AppRegistry instance created");
+			Logger.Append("AppRegistry instance created");
 			appPath = Application.ExecutablePath.ToLower();
 			openFilePath = appPath + " \"%1\"";
 			iconPath = appPath + ",2";
@@ -22,17 +22,17 @@ namespace Clockwork
 
 		public void Checkup()
 		{
-			Console.WriteLine("Checking up...");
+			Logger.Append("Checking up...");
 			RegistryKey registryCheckUp;
 			registryCheckUp = Registry.CurrentUser.OpenSubKey(rootKey);
 			if (registryCheckUp == null)
 			{
 				WriteEntries();
-				Console.WriteLine("Registry entries added to current user.");
+				Logger.Append("Registry entries added to current user.");
 			}
 			else
 			{
-				Console.WriteLine("Entry exists.");
+				Logger.Append("Entry exists.");
 			}
 		}
 
