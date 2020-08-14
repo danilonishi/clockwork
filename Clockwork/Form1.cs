@@ -5,11 +5,15 @@ using System.Diagnostics;
 using System.Security.Principal;
 using System.Reflection;
 using System.Deployment.Application;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Clockwork
 {
 	public partial class Form1 : Form
 	{
+		static Mutex _mutex;
+
 		AutoTimeUpdater updater;
 		CustomTime customTime;
 
@@ -67,6 +71,70 @@ namespace Clockwork
 			UpdateWindowTitle();
 		}
 
+		public List<string> GetApplicationArguments()
+		{
+			List<string> arguments = new List<string>();
+			arguments.AddRange(Environment.GetCommandLineArgs());
+			Logger.Append("Added Environment command line arguments. ArgCount:" + arguments.Count);
+
+			try
+			{
+				if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null && AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData.Length > 0)
+				{
+					arguments.AddRange(AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData);
+					Logger.Append("Added AppDomain arguments. ArgCount:" + arguments.Count);
+				}
+				else
+				{
+					Logger.Append("No AppDomain arguments. Skipping.");
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Append("Could not read AppDomain arguments. Reason:" + e.ToString());
+			}
+
+			return arguments;
+		}
+
+		public delegate void ProcessArgumentsDelegate(string[] arguments);
+
+		public string[] Args;
+		
+		public void ProcessArguments(string[] arguments)
+		{
+			Logger.Append("Processing arguments");
+			string profilePath = string.Empty;
+			int idx = 0;
+			Uri uri;
+			foreach (var arg in arguments)
+			{
+				var filepath = arg;
+				uri = new Uri(arg);
+				if (uri.IsFile)
+				{
+					filepath = uri.LocalPath;
+				}
+				Logger.Append(string.Format("Argument {0}: {1}", idx++, arg));
+				var path = System.IO.Path.GetFullPath(filepath);
+				if (System.IO.File.Exists(filepath))
+				{
+					if (filepath.EndsWith(".cwc"))
+					{
+						Logger.Append("CWC File found in environment arguments.");
+						profilePath = filepath;
+					}
+				}
+			}
+
+			// If found, load its data
+			if (!string.IsNullOrWhiteSpace(profilePath))
+			{
+				LoadDataFromPath(profilePath);
+			}
+
+		}
+
 		void StartNewProcess()
 		{
 			var processInfo = new ProcessStartInfo(Assembly.GetExecutingAssembly().CodeBase)
@@ -75,21 +143,22 @@ namespace Clockwork
 				UseShellExecute = true,
 				Verb = "runas"
 			};
-			var args = Environment.GetCommandLineArgs();
-			if (args != null)
+
+			var arguments = GetApplicationArguments();
+			if (arguments.Count > 0)
 			{
 				int idx = 0;
 				string fullarg = string.Empty;
-				foreach (var __arg in args)
+				foreach (var arg in arguments)
 				{
-					Logger.Append(string.Format("Argument {0}: {1}", idx, __arg));
+					Logger.Append(string.Format("Argument {0}: {1}", idx, arg));
 					if (idx > 0)
 					{
-						fullarg += string.Format("\"{0}\"", __arg);
+						fullarg += string.Format("\"{0}\"", arg);
 					}
 					idx++;
 				}
-				
+
 				Logger.Append("Starting new process with arguments:" + fullarg);
 				processInfo.Arguments = fullarg;
 			}
@@ -130,37 +199,48 @@ namespace Clockwork
 		{
 			Logger.Append("Checking CWC file...");
 			//Check if a CWC file is provided by the environment
-			string profilePath = string.Empty;
-			var args = Environment.GetCommandLineArgs();
-			int idx = 0;
-			foreach (var arg in args)
-			{
-				Logger.Append(string.Format("Argument {0}: {1}", idx++, arg));
-				var filepath = arg;
-				if (System.IO.File.Exists(filepath))
-				{
-					if (filepath.EndsWith(".cwc"))
-					{
-						Logger.Append("CWC File found in environment arguments.");
-						profilePath = filepath;
-					}
-				}
-			}
-
-			// If found, load its data
-			if (!string.IsNullOrWhiteSpace(profilePath))
-			{
-				LoadDataFromPath(profilePath);
-			}
-
+			ProcessArguments(GetApplicationArguments().ToArray());
 		}
 
-		public Form1()
+		bool IsMainInstance()
 		{
-			Logger.Append("Application Startup");
+			try
+			{
+				// Try to open existing mutex.
+				Mutex.OpenExisting("Clockwork");
+			}
+			catch
+			{
+				// If exception occurred, there is no such mutex.
+				_mutex = new Mutex(true, "Clockwork");
+
+				// Only one instance.
+				return true;
+			}
+			// More than one instance.
+			return false;
+		}
+
+		void StartupLogic()
+		{
+			if (!IsMainInstance())
+			{
+
+			}
+
+			Logger.Append("Cheking for other instances");
+			var exists = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Length > 1;
+			if (exists)
+			{
+				Logger.Append("Other instance is open.");
+				//MessageBox.Show("Clockwork is already running.");
+				//Environment.Exit(0);
+			}
+
+			var runningAsAdministrator = IsRunAsAdministrator();
 
 #if !DEBUG
-			if (!IsRunAsAdministrator())
+			if (!runningAsAdministrator)
 			{
 				Logger.Append("Not running as administrator");
 				StartNewProcess();
@@ -168,23 +248,31 @@ namespace Clockwork
 				Environment.Exit(0);
 			}
 #endif
-			Logger.Append("Initializing component..");
+		}
+
+
+		public Form1()
+		{
+			Logger.Append("Application Startup");
+
+			StartupLogic();
+
+			Logger.Append("Initializing Clockwork window");
 			InitializeComponent();
 
-
-
+			Logger.Append("Initializing Persistence");
 			//Default (safe) Persistence Data
-			defaultPersistanceData = new StandardApplicationPersistence();
+			standardPersistence = new StandardApplicationPersistence();
 			if (Properties.Settings.Default.FirstRun)
 			{
-				if (defaultPersistanceData.HasConfig())
+				if (standardPersistence.HasConfig())
 				{
-					defaultPersistanceData.Load();
+					standardPersistence.Load();
 					Properties.Settings.Default.FirstRun = false;
 				}
 				else
 				{
-					defaultPersistanceData.Save();
+					standardPersistence.Save();
 				}
 			}
 			SetProfileTitleText("Default");
@@ -197,8 +285,8 @@ namespace Clockwork
 			toolStripProgressBar1.Visible = false;
 		}
 
-		IPersistable defaultPersistanceData;
-		IPersistable customPersistanceData;
+		IPersistable standardPersistence;
+		IPersistable customPersistenceData;
 
 		void ReadProperties()
 		{
@@ -302,11 +390,11 @@ namespace Clockwork
 			Properties.Settings.Default.FirstRun = false;
 			Properties.Settings.Default.Save();
 
-			defaultPersistanceData.Save();
+			standardPersistence.Save();
 
-			if (customPersistanceData != null)
+			if (customPersistenceData != null)
 			{
-				customPersistanceData.Save();
+				customPersistenceData.Save();
 			}
 
 			ContainsUnsavedChanges = false;
@@ -563,8 +651,8 @@ namespace Clockwork
 
 		void LoadDataFromPath(string path)
 		{
-			SetupPersistanceForPath(path);
-			customPersistanceData.Load();
+			SetupPersistenceForPath(path);
+			customPersistenceData.Load();
 			ReadProperties();
 			ContainsUnsavedChanges = false;
 		}
@@ -572,11 +660,11 @@ namespace Clockwork
 		private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			var fullPath = (sender as SaveFileDialog).FileName;
-			SetupPersistanceForPath(fullPath);
+			SetupPersistenceForPath(fullPath);
 			FullSave();
 		}
 
-		void SetupPersistanceForPath(string filepath)
+		void SetupPersistenceForPath(string filepath)
 		{
 			var index = filepath.LastIndexOf('\\');
 			var filename = filepath.Substring(index + 1);
@@ -586,7 +674,7 @@ namespace Clockwork
 
 			SetProfileTitleText(fileNoExt);
 
-			customPersistanceData = new AppDataPersistence(folder, filename);
+			customPersistenceData = new AppDataPersistence(folder, filename);
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)

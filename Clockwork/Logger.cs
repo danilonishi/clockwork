@@ -38,7 +38,7 @@ namespace Clockwork
 
 		static void Log(string logMessage, TextWriter w)
 		{
-			w.Write("\r\n[Logger][{0}]: {1}", DateTime.Now.ToString(), logMessage);
+			w.Write("\r\n{1}", DateTime.Now.ToString(), logMessage);
 		}
 	}
 }

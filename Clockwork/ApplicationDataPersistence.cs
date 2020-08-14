@@ -19,7 +19,7 @@ namespace Clockwork
 		bool Load();
 	}
 
-	public class DataPersistancePath
+	public class DataPersistencePath
 	{
 		public readonly string rootFolder;
 		public readonly string filename;
@@ -32,7 +32,7 @@ namespace Clockwork
 			}
 		}
 
-		public DataPersistancePath(string rootFolder, string filename)
+		public DataPersistencePath(string rootFolder, string filename)
 		{
 			this.rootFolder = rootFolder;
 			this.filename = filename;
@@ -41,21 +41,21 @@ namespace Clockwork
 
 	public class AppDataPersistence : IPersistable
 	{
-		protected readonly DataPersistancePath currentPersistancePath;
+		protected readonly DataPersistencePath currentPersistencePath;
 
 		public AppDataPersistence(string folderPath, string filename)
 		{
-			Logger.Append("Creating Persistance object: " + Path.Combine(folderPath, filename));
-			currentPersistancePath = new DataPersistancePath(folderPath, filename);
+			Logger.Append("Creating Persistence object: " + Path.Combine(folderPath, filename));
+			currentPersistencePath = new DataPersistencePath(folderPath, filename);
 		}
 
 		public virtual void Save()
 		{
-			if (!Directory.Exists(currentPersistancePath.rootFolder))
-				Directory.CreateDirectory(currentPersistancePath.rootFolder);
+			if (!Directory.Exists(currentPersistencePath.rootFolder))
+				Directory.CreateDirectory(currentPersistencePath.rootFolder);
 
-			if (File.Exists(currentPersistancePath.FilePath))
-				File.Delete(currentPersistancePath.FilePath);
+			if (File.Exists(currentPersistencePath.FilePath))
+				File.Delete(currentPersistencePath.FilePath);
 			
 			AppData data = new AppData()
 			{
@@ -69,9 +69,9 @@ namespace Clockwork
 				lastDate = Properties.Settings.Default.LastDate
 			};
 
-			Logger.Append("Writing contents to " + currentPersistancePath.FilePath);
+			Logger.Append("Writing contents to " + currentPersistencePath.FilePath);
 
-			using (StreamWriter file = new StreamWriter(currentPersistancePath.FilePath))
+			using (StreamWriter file = new StreamWriter(currentPersistencePath.FilePath))
 			{
 				XmlSerializer writer = new XmlSerializer(typeof(AppData));
 				writer.Serialize(file, data);
@@ -80,7 +80,7 @@ namespace Clockwork
 
 		public virtual bool HasConfig()
 		{
-			return File.Exists(currentPersistancePath.FilePath);
+			return File.Exists(currentPersistencePath.FilePath);
 		}
 
 		public virtual bool Load()
@@ -89,7 +89,7 @@ namespace Clockwork
 			if (HasConfig())
 			{
 				Logger.Append("... config file found");
-				using (StreamReader file = new StreamReader(currentPersistancePath.FilePath))
+				using (StreamReader file = new StreamReader(currentPersistencePath.FilePath))
 				{
 					Logger.Append("... reading file...");
 					AppData data;
@@ -126,28 +126,28 @@ namespace Clockwork
 		const string configFileName = "clockwork_config";
 		readonly string localAppDataPath;
 		readonly string companyFolderPath;
-		AppDataPersistence persistance;
+		AppDataPersistence persistence;
 
 		public StandardApplicationPersistence()
 		{
-			Logger.Append("Creating Standard Application Persistance object");
+			Logger.Append("Creating Standard Application Persistence object");
 			localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 			companyFolderPath = Path.Combine(localAppDataPath, companyName);
 
-			persistance = new AppDataPersistence(companyFolderPath, string.Concat(configFileName, ".xml"));
+			persistence = new AppDataPersistence(companyFolderPath, string.Concat(configFileName, ".xml"));
 		}
 
 		public void Save()
 		{
-			persistance.Save();
+			persistence.Save();
 		}
 
 		public bool HasConfig()
-		{ return persistance.HasConfig(); }
+		{ return persistence.HasConfig(); }
 
 		public bool Load()
 		{
-			return persistance.Load();
+			return persistence.Load();
 		}
 	}
 

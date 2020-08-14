@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>ftp://ftp.ngdx.com/public_html/clockwork/|C:\Users\Danilo\Desktop\New folder\|ftp://ftp.ngdx.com/|ftp://clockwork%40ftp.ngdx.com/|publish\</PublishUrlHistory>
+    <PublishUrlHistory>C:\ClockworkBuild\|ftp://ftp.ngdx.com/public_html/clockwork/|C:\Users\Danilo\Desktop\New folder\|ftp://ftp.ngdx.com/|ftp://clockwork%40ftp.ngdx.com/</PublishUrlHistory>
     <InstallUrlHistory>http://www.ngdx.com/clockwork/</InstallUrlHistory>
     <SupportUrlHistory>http://ngdx.com/clockwork|http://ngdx.com/clockwork/publish.htm</SupportUrlHistory>
     <UpdateUrlHistory />
@@ -14,9 +14,9 @@
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartArguments>C:\Users\Danilo\Desktop\clockwork_config.cwc</StartArguments>
+    <StartArguments>file:///C:/Users/Danilo/Desktop/clockwork_config.cwc</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>C:\Users\Danilo\Desktop\clockwork_config.cwc</StartArguments>
+    <StartArguments>file:///C:/Users/Danilo/Desktop/clockwork_config.cwc</StartArguments>
   </PropertyGroup>
 </Project>
